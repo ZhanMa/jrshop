@@ -29,7 +29,8 @@
       <td class="table-center"><img src="{$site_url}/{$item.image}" width="200px"/></td>
       <td class="table-center"><span ectype="inline_edit" fieldname="sort_order" fieldid="{$item.item_id}" datatype="pint" title="{$lang.editable}" class="editable">{$item.sort_order}</span></td>
 		<td class="handler">
-        <a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=mobile_silde&amp;act=drop&amp;id={$item.item_id}');">{$lang.drop}</a>
+		<a href="index.php?app=mobile_slide&amp;act=edit&amp;id={$item.item_id}">编辑</a>
+        <a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=mobile_slide&amp;act=drop&amp;id={$item.item_id}');">{$lang.drop}</a>
         </td>
     </tr>
     <!--{foreachelse}-->
@@ -43,7 +44,7 @@
     <div class="pageLinks">{include file=page.bottom.html}</div>
     <div id="batchAction" class="left paddingT15">
       &nbsp;&nbsp;
-      <input class="formbtn batchButton" type="button" value="{$lang.edit}" name="id" uri="index.php?app=mobile_slide&act=batch_edit&ret_page={$page_info.curr_page}" />
+      <input style='display:none' class="formbtn batchButton hide" type="button" value="{$lang.edit}" name="id" uri="index.php?app=mobile_slide&act=batch_edit&ret_page={$page_info.curr_page}" />
       &nbsp;&nbsp;
       <input class="formbtn batchButton" type="button" value="{$lang.drop}" name="id" uri="index.php?app=mobile_slide&act=drop" presubmit="confirm('{$lang.drop_confirm}');" />
     </div>

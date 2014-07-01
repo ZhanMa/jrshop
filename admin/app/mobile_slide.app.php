@@ -44,7 +44,7 @@ class Mobile_slideApp extends BackendApp{
 		}else{
 			$data = array();
 			$data['sort_order']     = $_POST['sort_order'];
-			
+			$data['url'] = $_POST['url'];
 			/* 处理上传的图片 */
 			$image     =   $this->_upload_image();
 			if ($image === false)
@@ -92,7 +92,7 @@ class Mobile_slideApp extends BackendApp{
 			$data = array(
 					'sort_order'   => $_POST['sort_order'],
 			);
-			
+			$data['url'] = $_POST['url'];
 			/* 处理上传的图片 */
 			$image     =   $this->_upload_image();
 			if ($image)

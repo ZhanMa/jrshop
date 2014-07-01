@@ -20,6 +20,13 @@ class UserApp extends MobileApp{
 		}
 	}
 	
+	function logout(){
+		if($this->visitor->has_login){
+			$this->_do_logout();
+		}
+		$this->success();
+	}
+
 	function getinfo(){
 		$token = '';
 		if($this->visitor->has_login){

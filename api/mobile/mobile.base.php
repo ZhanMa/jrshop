@@ -127,9 +127,8 @@ class MobileVisitor extends BaseVisitor
 	{
 		if($this->appid && $this->token){
 			$usertoken = m('usertoken');
-			$condition = array('appid'=>$this->appid,'token'=>$this->token);
-			$data = array('token'=>'');
-			$usertoken->edit($condition,$data);
+			
+			$usertoken->db->query("update ecm_user_token set token='' where appid=$this->appid and token = '$this->token'");
 		}
 	}
 }

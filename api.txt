@@ -26,12 +26,44 @@ $.post("http://www.jrjlife.com/api/m.php?app=user&act=login",{datas:"{\"appid\":
 ----------------------------------------------
 以下是详细接口部分
 ----------------------------------------------
-登陆接口
+1\登陆接口
 app=user&act=login
 参数
 username 用户名
 password 密码
 返回结果
 用户的token 和其他用户信息
+
+
+2\获取当前登录用户信息
+app=user&act=getinfo
+参数
+除两个基本参数外 没别的参数（appid 和 token）
+返回结果
+类似登录的返回
+
+3\退出接口
+app=user&act=logout
+参数
+基本参数（appid 和 token）
+返回结果
+code码
+
+4\获取广告接口
+app=index&act=adv
+参数
+基本参数（appid 和 token）
+返回结果
+advs 数组
+{"code":200,"done":true,"advs":[{"item_id":"2","image":"http:\/\/www.jrjlife.com\/data\/files\/mall\/mobile\/201406091058184346.jpg","sort_order":"2","url":""},{"item_id":"1","image":"http:\/\/www.jrjlife.com\/data\/files\/mall\/mobile\/201406091057513121.jpg","sort_order":"3","url":""}]}
+
+5\获取最新商品
+app=index&act=newgoods
+参数
+num （选填） 条数 默认15个
+返回结果
+goods数组
+{"code":200,"done":true,"goods":[{"goods_id":"144","goods_name"...
+
 
 
