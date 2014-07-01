@@ -1,0 +1,1 @@
+Tue, 01 Jul 2014 15:46:30 +0800	[2]session_start(): Cannot send session cookie - headers already sent by (output started at D:\wamp\www\jrshop\includes\ecapp.base.php:149)	\includes\libraries\session.lib.php	404

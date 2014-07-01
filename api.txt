@@ -1,0 +1,37 @@
+访问具体接口 形式  http://www.jrjlife.com/api/m.php?app=user&act=login
+http://www.jrjlife.com/api/m.php 为基础地址每个接口不会变化 后面的接口介绍将省略这部分
+app=user&act=login 为接口的具体地址 每个接口有不同的地址
+
+除去每个接口的具体地址外 接口内调用的参数用post形式
+
+所有参数都放在名为datas的的post变量中 他的值为一个json字符串
+
+datas的基础参数包括 appid 和 token 每个接口至少包括这两个参数 后面再说的接口参数将不在介绍这两个
+appid为应用id 安卓传1 ios传2
+token为用户的票据 调用登陆接口后会反回 这个需要在应用本地存起来 户身份验证一句token 如果token传空则判断为未登录
+
+下面以js为例写一个具体的登陆调用
+$.post("http://www.jrjlife.com/api/m.php?app=user&act=login",{datas:"{\"appid\":1,\"username\":\"qq123\",\"password\":\"123456\"}"},function(data){console.log(data)});
+
+
+返回的结果 为json格式 {"code":200,"done":true,......}
+错误码说明
+0 未知错误
+200 成功
+101 未获取到datas
+102 用户名密码不能为空
+103 用户名或密码错误
+104 未获取到appid
+
+----------------------------------------------
+以下是详细接口部分
+----------------------------------------------
+登陆接口
+app=user&act=login
+参数
+username 用户名
+password 密码
+返回结果
+用户的token 和其他用户信息
+
+

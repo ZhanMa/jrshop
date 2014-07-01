@@ -39,7 +39,7 @@ SESSION_MEMCACHED : 存储session数据的memcached服务�?服务器地址1:�
 
 return array (
   'SITE_URL' => 'http://www.jrjlife.com',
-  'DB_CONFIG' => 'mysql://qdm0290423:admin123com@qdm-029.hichina.com/qdm0290423_db',
+  'DB_CONFIG' => 'mysql://root:@127.0.0.1/jrshop',
   'DB_PREFIX' => 'ecm_',
   'LANG' => 'sc-utf-8',
   'COOKIE_DOMAIN' => '',
@@ -53,8 +53,8 @@ return array (
   'ENABLED_SUBDOMAIN' => 0,
   'SUBDOMAIN_SUFFIX' => '',
   'SESSION_TYPE' => 'mysql',
-  'SESSION_MEMCACHED' => 'localhost:11211',
-  'CACHE_MEMCACHED' => 'localhost:11211',
+  'SESSION_MEMCACHED' => '192.168.0.169:11211',
+  'CACHE_MEMCACHED' => '192.168.0.169:11211',
 );
 
 ?>
