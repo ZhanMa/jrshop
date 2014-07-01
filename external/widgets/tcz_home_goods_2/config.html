@@ -1,0 +1,129 @@
+<script type="text/javascript">
+var _d = DialogManager.get('config_dialog');
+_d.setWidth(350);
+_d.setPosition('center');
+$('#_config_widget_form_').submit(function(){
+    stopScroll();
+});
+$('#add_image').click(function(){
+    $(this).before('<div class="field_item">' +
+        '<label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>' +
+        '<p><input type="file" name="ad_image_file[]" /></p>'+
+		'<label>图片宽高和定位位置（空格隔开，格式宽高左顶）</label>' +
+        '<p><input type="text" name="ad_cl_url[]" value="{$image.ad_cl_url}"/></p>'+
+        '<label>链接地址:</label>' +
+        '<p style="overflow:hidden;"><input type="text" name="ad_link_url[]" value="{$image.ad_link_url}" />' +
+        '<input type="button" value="删除图片" onclick="drop_image(this)" /></p></div>');
+});
+function drop_image(btnObj)
+{
+    $(btnObj).parents('.field_item').remove();
+}
+
+$("select[name='img_recom_id']").change(function(){
+    switchRecommend(this.value, 'img_cate_id');
+});
+
+$("select[name='img_recom_id_1']").change(function(){
+    switchRecommend(this.value, 'img_cate_id_1');
+});
+
+switchRecommend($("select[name='img_recom_id']").val(), 'img_cate_id');
+switchRecommend($("select[name='img_recom_id_1']").val(), 'img_cate_id_1');
+
+function switchRecommend(recomId, selectName)
+{
+    if (recomId >= 0)
+    {
+        $("select[name='" + selectName + "']").hide();
+    }
+    else
+    {
+        $("select[name='" + selectName + "']").show();
+    }
+}
+
+</script>
+<!-- {if $options.images} -->
+<!-- {foreach from=$options.images item=image name=image} -->
+<!--{if $smarty.foreach.image.iteration le 20}-->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_image_file[]" />
+        <input type="hidden" name="ad_image_url[]" value="{$image.ad_image_url}" />
+    <img src="{$image.ad_image_url}" height="15" /></p>
+    <label>图片宽高和定位位置（空格隔开，格式宽高左顶）</label>
+     <p><input type="text" name="ad_cl_url[]" value="{$image.ad_cl_url}" /></p>
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_link_url[]" value="{$image.ad_link_url}" />
+    <input  type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!--{else}-->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_image_file[]" />
+        <input type="hidden" name="ad_image_url[]" value="{$image.ad_image_url}" />
+    <img src="{$image.ad_image_url}" height="15" /></p>
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_link_url[]" value="{$image.ad_link_url}" />
+    <input  type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!--{/if}-->
+<!-- {/foreach} -->
+<!-- {else} -->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_image_file[]" /></p>
+    <label>图片宽高和定位位置（空格隔开，格式宽高左顶）</label>
+     <p><input type="text" name="ad_cl_url[]" /></p>
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_link_url[]" value="{$image.ad_link_url}" />
+    <input type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!-- {/if} -->
+<input type="button" id="add_image" value="新增图片" />
+<div class="field_item">
+    <label>模块标题</label>
+    <p><input type="text" name="model_name" value="{$options.model_name}"/></p>
+</div>
+<div class="field_item">
+    <label>关键字（多个关键字用空格隔开）</label>
+    <p><textarea name="kw" style="width:300px;height:100px;">{$options.kw}</textarea></p>
+</div>
+<div class="field_item">
+	<label>显示数量(以图片展示的商品)：</label>
+	<p><input type="text" name="amount" value="{$options.amount}" /></p>
+     <label>商品图片的宽度和高度定位坐标（顶部、左边）（宽高定位参数用空格隔开，不同商品的参数用逗号隔开）：</label>
+    <p><textarea style="width:300px;height:100px;" name="whtl">{$options.whtl}</textarea></p>
+    <label>商品推荐类型:</label>
+    <p><select name="img_recom_id">
+        <option value="0">请选择...</option>
+        <!-- {foreach from=$recommends key=recom_id item=recom_name} -->
+        <option value="{$recom_id}"{if $options.img_recom_id eq $recom_id} selected="selected"{/if}>{$recom_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select name="img_cate_id">
+        <option value="0">请选择分类...</option>
+        <!-- {html_options options=$gcategories selected=$options.img_cate_id} -->
+    </select>
+	</p>
+</div>
+<div class="field_item">
+    <label>商品推荐类型:</label>
+    <p><select name="img_recom_id_1">
+        <option value="0">请选择...</option>
+        <!-- {foreach from=$recommends key=recom_id item=recom_name} -->
+        <option value="{$recom_id}"{if $options.img_recom_id_1 eq $recom_id} selected="selected"{/if}>{$recom_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select name="img_cate_id_1">
+        <option value="0">请选择分类...</option>
+        <!-- {html_options options=$gcategories selected=$options.img_cate_id_1} -->
+    </select>
+	</p>
+</div>
+<div class="field_item">
+    <label>品牌</label>
+    <p><input name="brand_tag" type="text" value="{$options.brand_tag}"/></p>
+</div>
+

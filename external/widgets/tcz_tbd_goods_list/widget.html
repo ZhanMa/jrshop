@@ -1,0 +1,123 @@
+
+<div id="goodlist_{$widget_data.mt_rand}" class="goods_list">
+	  <ul class="ks-switchable-nav">
+      	  <!-- {foreach from=$widget_data.model_name item=model name=model} -->
+          <li {if $smarty.foreach.model.iteration eq 1}class="ks-active"{/if} {if $smarty.foreach.model.iteration eq 4}{/if}>{$model|escape}<span class="left_new"></span><span class="right_new"></span><span class="top_new"></span><span class="bt_new"></span></li>
+          <!--{/foreach}-->
+          <div class="clr"></div>
+      </ul> 
+      <div class="line">
+      		<div class="red_bk"><span></span><a target="_blank" href="{$widget_data.tlink}">{$widget_data.tname}</a><b></b></div>
+      </div>
+      <div class="content_1">
+      	 <div class="g_left"> 
+     	 	<div class="ks-switchable-content">
+      			<div class="box_1">
+                <!--{if $widget_data.goods_list.1}-->
+        		<!-- {foreach from=$widget_data.goods_list.1 item=good name=goods} -->
+                	<div class="canx">
+                         <ul {if $smarty.foreach.goods.iteration % 5==0}style="border-right:0px;"{/if}class="item">
+                             <li class="pic-1"><a href="{url app=goods&id=$good.goods_id}" target="_blank" >
+                                <img width="123" height="123" src="{$good.default_image}" /></a></li>
+                             <li class="disc"><a target="_blank" href="{url app=goods&id=$good.goods_id}">{$good.goods_name|escape|truncate:46}</a></li>
+    
+                             <li class="tj">&yen;<span>{$good.price}</span></li>
+                             {if $good.keyword}
+                             <li class="more_gl"><a target="_blank" href="index.php?app=search&keyword={$good.keyword}">{$good.keyword}<b></b></a></li>						
+                             {/if}
+                          </ul>
+                      </div>
+                <!--{/foreach}-->
+                <!--{/if}-->
+                <div class="clr"></div>
+                </div>
+                <div class="box_1 undisp">
+                <!--{if $widget_data.goods_list.2}-->
+        		<!-- {foreach from=$widget_data.goods_list.2 item=good name=goods} -->
+                	<div class="canx">
+                         <ul {if $smarty.foreach.goods.iteration % 5==0}style="border-right:0px;"{/if}class="item">
+                             <li class="pic-1"><a href="{url app=goods&id=$good.goods_id}" target="_blank" >
+                                <img width="123" height="123" src="{$good.default_image}" /></a></li>
+                             <li class="disc"><a target="_blank" href="{url app=goods&id=$good.goods_id}">{$good.goods_name|escape|truncate:46}</a></li>
+                             <li class="tj">&yen;<span>{$good.price}</span></li>
+                             {if $good.keyword}
+                             <li class="more_gl"><a target="_blank" href="index.php?app=search&keyword={$good.keyword}">{$good.keyword}<b></b></a></li>						
+                             {/if}
+                          </ul>
+                      </div>
+                <!--{/foreach}-->
+                <!--{/if}-->
+                <div class="clr"></div>
+                </div>
+                <div class="box_1 undisp">
+                <!--{if $widget_data.goods_list.3}-->
+        		<!-- {foreach from=$widget_data.goods_list.3 item=good name=goods} -->
+                	<div class="canx">
+                         <ul {if $smarty.foreach.goods.iteration % 5==0}style="border-right:0px;"{/if}class="item">
+                             <li class="pic-1"><a href="{url app=goods&id=$good.goods_id}" target="_blank" >
+                                <img width="123" height="123" src="{$good.default_image}" /></a></li>
+                             <li class="disc"><a target="_blank" href="{url app=goods&id=$good.goods_id}">{$good.goods_name|escape|truncate:46}</a></li>
+                             <li class="tj">&yen;<span>{$good.price}</span></li>
+                             {if $good.keyword}
+                             <li class="more_gl"><a target="_blank" href="index.php?app=search&keyword={$good.keyword}">{$good.keyword}<b></b></a></li>
+                             {/if}
+                          </ul>
+                      </div>
+                <!--{/foreach}-->
+                <!--{/if}-->
+                <div class="clr"></div>
+                </div>
+      	</div>
+            <div style="height:54px;overflow:hidden;">
+                <div class="brand_logo">
+                    <!-- {foreach from=$widget_data.brands item=brand name=fe_brand} -->
+                    <!--{if $brand.tag == $widget_data.b_logo}-->
+                    <a {if $smarty.foreach.fe_brand.iteration % 2==0}style="margin-right:;"{/if}target="_blank" title="{$brand.brand_name}"  href="index.php?app=search&brand={$brand.brand_name|escape:url}"><img width="67" height="40" src="{$brand.brand_logo}" /></a>         
+                    <!--{/if}-->
+                    <!--{/foreach}--> 		
+                </div>
+            </div>
+         </div> 
+         <div class="rank">
+            <ul>
+            	<!--{if $widget_data.goods_list.3}-->
+        		<!-- {foreach from=$widget_data.goods_list.4 item=good name=goods} -->
+            	<li class="first1">
+                	<dt class="dt_1"><a target="_blank" href="{url app=goods&id=$good.goods_id}">{$good.goods_name|escape|truncate:32}</a></dt>
+                    <dt {if $smarty.foreach.goods.iteration == 1}style="display:block;"{/if} class="dt_2">
+                    	<div class="dd_left">
+                        	<a target="_blank" href="{url app=goods&id=$good.goods_id}">
+             				<img width="65" height="65" src="{$good.default_image}" /></a>
+                        </div>
+                        <div class="dd_right">
+                        	<p style="height:40px;overflow:hidden;"><a target="_blank" href="{url app=goods&id=$good.goods_id}">{$good.goods_name|escape|truncate:36}</a></p>
+                            <p><span>&yen;{$good.price}</span></p>
+                        </div>
+                        <div class="clr"></div>
+                    </dt>
+                    <div class="clr"></div>
+                </li>
+                <!--{/foreach}-->
+                <!--{/if}-->
+            </ul>
+         </div>
+        <div class="clr"></div>         
+      </div>
+</div>
+
+
+
+
+ <script>
+    KISSY.ready(function(S) {
+        var tabs = new S.Tabs('#goodlist_{$widget_data.mt_rand}');
+
+    });
+	$(document).ready(function(){
+		$('#goodlist_{$widget_data.mt_rand} .first1 .dt_1').hover(function(){
+			$('#goodlist_{$widget_data.mt_rand} .first1 .dt_2').hide();	
+			$(this).next().show();
+			})
+	})
+	
+</script>

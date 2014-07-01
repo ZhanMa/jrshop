@@ -1,0 +1,134 @@
+<script type="text/javascript">
+var _d = DialogManager.get('config_dialog');
+_d.setWidth(700);
+_d.setPosition('center');
+
+$("select[name='tab_recom_id_1[]']").change(function(){
+    switchRecommend(this, 'tab_cate_id_1[]');
+});
+
+switchRecommend($("select[name='tab_recom_id_1[]']"), 'tab_cate_id_1[]');
+
+function switchRecommend(recom, selectName){
+	recomId = $(recom).val();
+    if (recomId >= 0){
+    	$(recom).siblings('select').hide();
+    }else{
+    	$(recom).siblings('select').show();
+    }
+}
+$('#add_tab').click(function(){
+    $(this).before('<div class="tab_item"><div class="field_item">'+
+    	    '<label>页签标题</label>'+
+    	    '<p><input type="text" name="tab_name[]" value="{$tab.tab_name}"/></p>'+
+    		'</div>'+
+    		'<div class="field_item">'+
+    	    '<label>商品推荐类型:</label>'+
+    	    '<p><select name="tab_recom_id_1[]">'+
+    	    '<option value="0">请选择...</option>'+
+    	    '<!-- {foreach from=$recommends key=recom_id item=recom_name} -->'+
+    	    '<option value="{$recom_id}">{$recom_name|escape}</option>'+
+    	    '<!-- {/foreach} -->'+
+    	    '</select>'+
+    	    '<select style="display:none" name="tab_cate_id_1[]">'+
+    	    '<option value="0">请选择分类...</option>'+
+    	    '<!-- {html_options options=$gcategories} -->'+
+    	    '</select><input type="button" value="删除标签" onclick="drop_tab(this)" />'+
+    		'</p>'+
+    	'</div></div><div class="clr"></div>');
+    $("select[name='tab_recom_id_1[]']").unbind('change');
+    $("select[name='tab_recom_id_1[]']").change(function(){
+        switchRecommend(this, 'tab_cate_id_1[]');
+    });
+});
+function drop_tab(btnObj){
+    $(btnObj).parents('.tab_item').remove();
+}
+</script>
+<style type="text/css">
+.field_item{float:left !important;}
+.widget_config_form_body {
+    padding: 0 0;
+}
+
+.widget_config_form_body .tab_item {
+    border-bottom: 1px dotted #DDDDDD;
+    padding: 5px;
+}
+.tab_item {
+    float: left !important;
+}
+</style>
+<div class="field_item">
+    <label>模块标题</label>
+    <p><input type="text" name="model_name" value="{$options.model_name}"/></p>
+</div>
+<div class="clr"></div>
+<div class="field_item">
+    <label>文章分类:</label>
+    <p><select name="a_cate_id_a">
+        <!-- {foreach from=$acategories item=item} -->
+        <option value="{$item.cate_id}" {if $options.a_cate_id_a eq $item.cate_id} selected="selected"{/if}>{$item.cate_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+</div>
+<div class="clr"></div>
+<div class="field_item">
+    <label>上传广告图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_image_file" /><input type="hidden" name="ad_image_url" value="{$options.ad_image_url}" /></p>
+    <!-- {if $options.ad_image_url} --><p><img src="{$options.ad_image_url}" height="20" /></p><!-- {/if} -->
+</div>
+<div class="clr"></div>
+<div class="field_item">
+    <label>广告链接地址:</label>
+    <p><input type="text" name="ad_link_url" value="{$options.ad_link_url}" /></p>
+</div>
+<div class="clr"></div>
+<!-- {if $options.tabs} -->
+<!-- {foreach from=$options.tabs item=tab name=tab} -->
+<div class="tab_item">
+<div class="field_item">
+    <label>页签标题</label>
+    <p><input type="text" name="tab_name[]" value="{$tab.tab_name}"/></p>
+</div>
+<div class="field_item">
+    <label>商品推荐类型:</label>
+    <p><select name="tab_recom_id_1[]">
+        <option value="0">请选择...</option>
+        <!-- {foreach from=$recommends key=recom_id item=recom_name} -->
+        <option value="{$recom_id}"{if $tab.tab_recom_id_1 eq $recom_id} selected="selected"{/if}>{$recom_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select name="tab_cate_id_1[]">
+        <option value="0">请选择分类...</option>
+        <!-- {html_options options=$gcategories selected=$tab.tab_cate_id_1} -->
+    </select>
+    <input type="button" value="删除标签" onclick="drop_tab(this)" />
+	</p>
+</div>
+</div>
+<div class="clr"></div>
+<!-- {/foreach} -->
+<!-- {else} -->
+<div class="field_item">
+    <label>页签标题</label>
+    <p><input type="text" name="tab_name[]" value="{$tab.tab_name}"/></p>
+</div>
+<div class="field_item">
+    <label>商品推荐类型:</label>
+    <p><select name="tab_recom_id_1[]">
+        <option value="0">请选择...</option>
+        <!-- {foreach from=$recommends key=recom_id item=recom_name} -->
+        <option value="{$recom_id}">{$recom_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select name="tab_cate_id_1[]">
+        <option value="0">请选择分类...</option>
+        <!-- {html_options options=$gcategories} -->
+    </select>
+	</p>
+</div>
+<div class="clr"></div>
+<!-- {/if} -->
+<input type="button" id="add_tab" value="新增页签" />
+

@@ -1,0 +1,113 @@
+<div class="homeg2 b10">
+	<div class="hd_1">
+        <h3>{$widget_data.model_name}</h3>
+        <span>
+        	<!--{foreach from=$widget_data.keywords item=kw}-->
+            <a href="index.php?app=search&amp;keyword={$kw}" target="_blank">{$kw}</a>
+            <!--{/foreach}-->
+        </span>
+        <div class="clr"></div>
+    </div>
+    <div class="content_1">
+    	<div class="row1">
+        	<script type="text/javascript">
+				$(document).ready(function(){
+					$('.homeg2 .boxout').hover(
+						function(){$(this).css('border','1px solid red');
+								   $(this).children('a').children('dl').show();
+						},
+						function(){$(this).css('border','1px solid #D0D0D0');
+								   $(this).children('a').children('dl').hide();
+						}
+					);	
+				});
+			</script> 
+    		<div class="lefth1">
+            	<!--{foreach from=$widget_data.goods_listx item=goods_listx name=goods_listx}-->
+                <div  class="boxout"  style="left:{$goods_listx.l}px;top:{$goods_listx.t}px;width:{$goods_listx.w3}px;height:{$goods_listx.h3}px;overflow:hidden;">
+                    <a href="index.php?app=goods&id={$goods_listx.goods_id}" target="_blank" style="position:relative;height:{$goods_listx.h2}px;display:block;overflow:hidden;">
+                    	<img  width="{$goods_listx.w}" height="{$goods_listx.h}" src="{$goods_listx.default_image}" />
+                        <dl style="position:absolute;bottom:2px;left:2px;">
+                            <dt style="width:{$goods_listx.w}px;"><strong title="{$goods_listx.goods_name}">{$goods_listx.goods_name|truncate:24}</strong><b>{$goods_listx.price|price}</b></dt>
+                        </dl>
+                    </a>
+                </div>
+                <!--{/foreach}-->
+            	<!--{foreach from=$widget_data.images item=images name=images_1}-->
+                <!--{if $smarty.foreach.images_1.iteration le 20}-->
+                <!--{if $images.ad_image_url}-->
+            	<div class="boxout"  style="left:{$images.left}px;top:{$images.top}px;"><a href="{$images.ad_link_url}" target="_blank"><img width="{$images.width}" height="{$images.height}" src="{$images.ad_image_url}" /></a></div>
+                <!--{/if}-->
+                <!--{/if}-->
+                <!--{/foreach}-->
+            </div>
+            <div class="righth1">
+            	<div class="container_r sl_{$widget_data.model_id}">
+					<div class="rank">
+                        <ul>
+                            <!-- {foreach from=$widget_data.goods_list item=good name=goods} -->
+                            <li class="first1">
+                                <dt class="dt_1"><a href="{url app=goods&id=$good.goods_id}">{$good.goods_name|escape|truncate:32}</a></dt>
+                                <dt {if $smarty.foreach.goods.iteration == 1}style="display:block;"{/if} class="dt_2">
+                                    <div class="dd_left">
+                                        <a href="{url app=goods&id=$good.goods_id}" target="_blank">
+                                        <img width="65" height="65" src="{$good.default_image}" /></a>
+                                    </div>
+                                    <div class="dd_right">
+                                        <p class="titlexx"><a title="{$good.goods_name}" href="{url app=goods&id=$good.goods_id}" target="_blank">{$good.goods_name|escape|truncate:36}</a></p>
+                                        <p><span style="_color:#000;">&yen;{$good.price}</span></p>
+                                    </div>
+                                    <div class="clr"></div>
+                                </dt>
+                                <div class="clr"></div>
+                            </li>
+                            <!--{/foreach}-->
+                        </ul>
+						<script>
+                            $(document).ready(function(){
+                                $('.sl_{$widget_data.model_id}  .rank .first1 .dt_1').hover(function(){
+                                    $('.sl_{$widget_data.model_id}  .rank .first1 .dt_2').hide();	
+                                    $(this).next().show();
+                                    })
+                            })
+                            
+                        </script>
+         			</div>
+            	</div>
+            </div>
+            <div class="clr"></div>
+    	</div>
+        <div class="row2">
+        	<div class="six-pic-scroll_23 carousel-{$widget_data.model_id} b10">
+              <div class="btn-1">
+                <a class="prev-1 prev" href="javascript:;"></a>
+                <a class="next-1 next" href="javascript:;"></a> 
+              </div>
+              <div class="scroller">
+                 <ul class="ks-switchable-content clearfix">
+                    <!--{foreach from=$widget_data.brand item=brand name=brand} -->
+                    <li>
+                    	<a title="{$brand.brand_name}" href="index.php?app=search&brand={$brand.brand_name|escape:url}" target="_blank"><img width="100" height="100" src="{$brand.brand_logo}" /></a>
+                    </li>
+                    <!-- {/foreach} -->
+                  </ul>
+                </div>
+             </div>
+			<script>
+				KISSY.use("switchable", function(S) {
+				var tiny_slide = new S.Carousel('.carousel-{$widget_data.model_id}', {
+				steps:11,
+				effect: 'scrollx',
+				easing: 'easeOutStrong',
+				circular: true,
+				prevBtnCls: 'prev',
+				nextBtnCls: 'next',
+				disableBtnCls: 'disable',
+				aria:false,
+				autoplay:true
+				});
+				});
+            </script>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,175 @@
+<script type="text/javascript" src="{lib file=jcarousellite.js}" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	$('#tab_{$widget_data.model_id} .tab >li').each(function(i){
+		$(this).mouseover(function(){
+			$(this).addClass('current');
+			$(this).siblings('li').removeClass('current');
+			var contl = $('#tab_{$widget_data.model_id}').siblings('div').find('.tab_content > li');
+			contl.eq(i).show();
+			contl.eq(i).siblings('li').hide();
+		});
+	});
+	$('#left_slider_{$widget_data.model_id}').jCarouselLite({
+	    speed: 1000,
+	    visible: 1
+	});
+	$('#center_slider_{$widget_data.model_id}').jCarouselLite({
+		auto: 3000,
+	    speed: 3000,
+	    visible: 1
+	});
+	$('#right_slider_{$widget_data.model_id}').jCarouselLite({
+		auto: 2000,
+	    speed: 2000,
+	    vertical: true,
+	    visible: 4
+	});
+	
+	$('.b_tab >ul > li').each(function(i){
+		$(this).mouseover(function(){
+			$(this).addClass('current');
+			$(this).siblings('li').removeClass('current');
+			
+			$('#rank_4').find('ul').eq(i).show();
+			$('#rank_4').find('ul').eq(i).siblings().hide();
+		});
+	});
+});
+
+</script>
+<div class="homeg2 b10">
+	<div class="hd_1">
+        <h3>{$widget_data.model_name}</h3>
+        <div class="clr"></div>
+    </div>
+    <div class="content_4">
+    	<div class="top1">
+    		<div class="lefth1">
+    			<div class="img_slider">
+				    <div class="img_slider_img" id="left_slider_{$widget_data.model_id}">
+				        <ul>
+				            <!-- {foreach from=$widget_data.leftimg item=image name=fe_image} -->
+				            <li><a href="{$image.ad_leftlink_url}"><img src="{$image.ad_leftimage_url}" width="190" height="435" rel="{$smarty.foreach.fe_image.index}" /></a></li>
+				            <!-- {/foreach} -->
+				        </ul>
+				    </div>
+				    <div class="img_slider_nav">
+				    	<ul>
+				    	<!-- {foreach from=$widget_data.leftimg item=image name=fe_image} -->
+				    	<li></li>
+				    	<!-- {/foreach} -->
+				    	</ul>
+				    </div>
+				</div>
+    		</div>
+    		<div class="middleh1">
+    		<div id="tab_{$widget_data.model_id}">
+			<ul class="tab">
+			<!-- {foreach from=$widget_data.tabs item=tab name=tab} -->
+			<li {if $smarty.foreach.tab.first}class="current" style="border-left:none"{/if}>{$tab.tab_name}</li>
+			<!-- {/foreach} -->	
+			</ul>
+			</div>
+			<div>
+			<ul class="tab_content">
+			<!-- {foreach from=$widget_data.goods_list item=list name=list} -->
+			<li {if !$smarty.foreach.list.first}style="display:none"{/if}>
+				<div>
+				<ul class="goods_list">
+                <!-- {foreach from=$list item=goods name=goods} -->
+                <li>
+                    <p><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$goods.default_image}" width="120" height="120" /></a></p>
+                    <h3><a href="{url app=goods&id=$goods.goods_id}" target="_blank" title="{$goods.goods_name|escape}">{$goods.goods_name|escape}</a><span>街区价:{$goods.price|price}</span></h3>
+                </li>
+                <!--{if $smarty.foreach.list.first && $smarty.foreach.goods.first}-->
+                <li class="center_li">
+                <div class="img_slider">
+				    <div class="img_slider_img" id="center_slider_{$widget_data.model_id}">
+				        <ul>
+				            <!-- {foreach from=$widget_data.centerimg item=image name=fe_image} -->
+				            <li><a href="{$image.ad_centerlink_url}"><img src="{$image.ad_centerimage_url}" width="248" height="155" rel="{$smarty.foreach.fe_image.index}"/></a></li>
+				            <!-- {/foreach} -->
+				            <div class="clearfix"></div>
+				        </ul>
+				    </div>
+				    <div class="img_slider_nav">
+				    	<ul>
+				    	<!-- {foreach from=$widget_data.centerimg item=image name=fe_image} -->
+				    	<li>&nbsp;</li>
+				    	<!-- {/foreach} -->
+				    	</ul>
+				    </div>
+				</div>
+                </li>
+                <!--{/if} -->
+                <!-- {/foreach} -->
+				</ul>
+				</div>
+			</li>
+			<!-- {/foreach} -->	
+			<div class="clr"></div>
+			</ul>
+			</div>
+    		</div>
+    		<div class="righth1">
+	    		<div id="right_slider_{$widget_data.model_id}">
+	            <ul class="particular">
+	                <!--{foreach from=$widget_data.store item=store} -->
+	                <li>
+	                    <div class="pic"><a href="{url app=store&id=$store.store_id}"><img src="{$store.store_logo}" width="90" height="90" /></a></div>
+	                    <dl>
+	                        <dt><a href="{url app=store&id=$store.store_id}" title="{$store.store_name|escape}">{$store.store_name|escape}</a></dt>
+							<dd>店主: {$store.user_name|escape}</dd>
+                        	<dd>商品: {$store.goods_count}</dd>
+                        	<dd>信用: {$store.praise_rate}%</dd>
+	                    </dl>
+	                    <div class="clearfix"></div>
+	                </li>
+	                <!-- {/foreach} -->
+	            </ul>
+	        	</div>
+    		</div>
+    		<div class="clearfix"></div>
+    	</div>
+		<div class="bottom1">
+    		<div class="lefth2">
+    		<div class="tag_1">
+			<span>
+        	<!--{foreach from=$widget_data.keywords item=kw}-->
+            <a href="index.php?app=search&keyword={$kw}">{$kw}</a>
+            <!--{/foreach}-->
+        	</span>
+        	</div>
+    		</div>
+    		<div class="righth2">
+    		<div class="b_tab">
+    		<ul>
+    			<!-- {foreach from=$widget_data.gcates item=gcate name=gcate} -->
+    			<li{if $smarty.foreach.gcate.first} class="current"{/if}>{$gcate.cate_name|escape}</li>
+    			<!--{/foreach}-->
+    			<div class="clearfix"></div>
+    		</ul>
+    		</div>
+    		<div id="rank_4">
+    		<!--{foreach from=$widget_data.rank item=rank name=rank}-->
+    		<ul {if !$smarty.foreach.rank.first}style="display:none"{/if}>
+    			<!--{foreach from=$rank item=goods name=goods}-->
+    			<li class='li_{$smarty.foreach.goods.index}'>
+                    <dl>
+                    	<dt>
+                    	<div class="pic"><a href="{url app=goods&id=$goods.goods_id}" target="_blank"><img src="{$goods.default_image}" width="50" height="50" /></a></div>
+                    	<h3><a href="{url app=goods&id=$goods.goods_id}" target="_blank" title="{$goods.goods_name|escape}">{$goods.goods_name|escape}</a><span>{$goods.price|price}</span></h3>
+                    	</dt>
+						<dt>已售出{$goods.sales}件</dt>
+                    </dl>
+                </li>
+                <!--{/foreach}-->
+    		</ul>
+    		<!--{/foreach}-->
+    		</div>
+    		</div>
+    		<div class="clearfix"></div>
+    	</div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<script type="text/javascript">
+var _d = DialogManager.get('config_dialog');
+_d.setWidth(350);
+_d.setPosition('center');
+</script>
+<div class="field_item">
+    <label>模块名称:</label>
+    <p><input type="text" name="module_name_0" value="{$options.module_name_0}" /></p>
+</div>
+<div class="field_item">
+    <label>文章分类:</label>
+    <p><select name="a_cate_id_0">
+        <!-- {foreach from=$acategories item=item} -->
+        <option value="{$item.cate_id}" {if $options.a_cate_id_0 eq $item.cate_id} selected="selected"{/if}>{$item.cate_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    </p>
+    <label>文章显示数量：</label>
+    <p><input type="text" name="amount_0" value="{$options.amount_0}" /></p>
+</div>
+<div class="field_item">
+    <label>模块名称:</label>
+    <p><input type="text" name="module_name_1" value="{$options.module_name_1}" /></p>
+</div>
+<div class="field_item">
+    <label>文章分类:</label>
+    <p><select name="a_cate_id_1">
+        <!-- {foreach from=$acategories item=item} -->
+        <option value="{$item.cate_id}" {if $options.a_cate_id_1  eq $item.cate_id} selected="selected"{/if}>{$item.cate_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    </p>
+    <label>文章显示数量：</label>
+    <p><input type="text" name="amount_1" value="{$options.amount_1}" /></p>
+</div>
+<div class="field_item">
+    <label>模块名称:</label>
+    <p><input type="text" name="module_name_2" value="{$options.module_name_2}" /></p>
+</div>
+<div class="field_item">
+    <label>文章分类:</label>
+    <p><select name="a_cate_id_2">
+        <!-- {foreach from=$acategories item=item} -->
+        <option value="{$item.cate_id}" {if $options.a_cate_id_2  eq $item.cate_id} selected="selected"{/if}>{$item.cate_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    </p>
+    <label>文章显示数量：</label>
+    <p><input type="text" name="amount_2" value="{$options.amount_2}" /></p>
+</div>
+<div class="field_item">
+    <label>模块名称:</label>
+    <p><input type="text" name="module_name_3" value="{$options.module_name_3}" /></p>
+</div>
+<div class="field_item">
+    <label>文章分类:</label>
+    <p><select name="a_cate_id_3">
+        <!-- {foreach from=$acategories item=item} -->
+        <option value="{$item.cate_id}" {if $options.a_cate_id_3  eq $item.cate_id} selected="selected"{/if}>{$item.cate_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    </p>
+    <label>文章显示数量：</label>
+    <p><input type="text" name="amount_3" value="{$options.amount_3}" /></p>
+</div>
+<div class="field_item">
+    <label>模块名称:</label>
+    <p><input type="text" name="module_name_4" value="{$options.module_name_4}" /></p>
+</div>
+<div class="field_item">
+    <label>文章分类:</label>
+    <p><select name="a_cate_id_4">
+        <!-- {foreach from=$acategories item=item} -->
+        <option value="{$item.cate_id}" {if $options.a_cate_id_4  eq $item.cate_id} selected="selected"{/if}>{$item.cate_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    </p>
+    <label>文章显示数量：</label>
+    <p><input type="text" name="amount_4" value="{$options.amount_4}" /></p>
+</div>
+
+
+<div class="field_item">
+    <label>电话1：</label>
+    <p><input type="text" name="tel" value="{$options.tel}" /></p>
+    <label>电话2：</label>
+    <p><input type="text" name="tel2" value="{$options.tel2}" /></p>
+    <label>电话3：</label>
+    <p><input type="text" name="tel3" value="{$options.tel3}" /></p>
+    <label>电邮：</label>
+    <p><input type="text" name="email" value="{$options.email}" /></p>
+</div>

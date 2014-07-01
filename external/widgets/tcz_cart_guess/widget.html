@@ -1,0 +1,22 @@
+
+<div class="guess b10">
+	<div class="hd_1">
+        <span>{$widget_data.model_name}</span>
+    </div>
+	<div class="content_1">
+			<!--{if $widget_data.goods_list}-->
+        		<!-- {foreach from=$widget_data.goods_list item=good name=goods} -->
+               		 <ul {if $smarty.foreach.goods.iteration % 5==0}style="margin-right:0px;margin-left:1px;"{/if}class="item">
+                         <li class="pic-1"><a href="{url app=goods&id=$good.goods_id}" target="_blank" >
+             				<img width="173" height="173" src="{$good.default_image}" /></a></li>
+                          <li class="collect_1"><a href="{url app=goods&id=$good.goods_id}" target="_blank"></a><b style="cursor:pointer;" onclick="javascript:collect_goods({$good.goods_id});"></b></li>
+                         <li class="desc_1"><a href="{url app=goods&id=$good.goods_id}" target="_blank">{$good.goods_name|escape|truncate:38}</a></li>
+
+                         <li class="tj"><b>&yen;{$good.price}</b><del>&yen;{$good.market_price}</del></li>
+                      </ul>
+                <!--{/foreach}-->
+                <!--{/if}-->
+                <div class="clr"></div>
+    </div>
+</div>
+

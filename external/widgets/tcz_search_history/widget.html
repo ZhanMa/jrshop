@@ -1,0 +1,25 @@
+
+<div id="rank_3" class="b10">
+	<h3><span>浏览记录</span></h3>
+    <!--{if $widget_data}-->
+    <!-- {foreach from=$widget_data item=history name=h} -->
+    <div class="rank_box">
+    	<div {if $smarty.foreach.h.last}style="border-bottom:0px;"{/if}class="ul_1">
+        	<div class="li_1">
+                <dl>
+                	<dt class="pic_1"><a href="{url app=goods&id=$history.goods_id}" target="_blank"><img width="70"  src="{$history.default_image}" /></a></dt>
+                    <dt class="desc_rk"><a href="{url app=goods&id=$history.goods_id}" target="_blank">{$history.goods_name}</a><b>&yen;{$history.price}</b></dt>
+                    <div class="clr"></div>
+                </dl>
+            </div>
+            <div class="sales_all">已售出{$history.sales}件</div>
+        </div>
+    </div>
+    <!--{/foreach}-->
+    <!--{else}-->
+    <div class="rank_box">
+    	<div style="text-indent:20px;height:32px;padding:20px;position:relative;"><img style="position:absolute;left:20px;top:10px;" width="32" height="32" src="themes/mall/tcz/styles/default/images/new/noinfo.jpg" /><span style="display:inline-block;margin-bottom:10px;">你还没有浏览过商品</span></div>
+    </div>
+    <!--{/if}-->
+</div>
+

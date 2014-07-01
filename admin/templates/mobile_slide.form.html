@@ -1,0 +1,72 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#slide_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('right').text('OK!');
+        },
+        onkeyup    : false,
+        rules : {
+			sort_order : {
+                number   : true
+            }<!--{if !$slide.image}-->,
+        	image : {
+        		required : true,
+                accept  : 'gif|png|jpe?g'
+            }
+            <!--{/if}-->
+        },
+        messages : {
+        	sort_order  : {
+                number   : '排序仅可以为数字'
+            }<!--{if !$slide.image}-->,
+        	image : {
+        		required : '图片不能为空',
+            	accept : '支持格式gif,jpg,jpeg,png'
+        	}
+            <!--{/if}-->
+        }
+    });
+});
+</script>
+<div id="rightTop">
+  <p>幻灯片：</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=mobile_slide">{$lang.manage}</a></li>
+    <!-- {if $slide.item_id} -->
+    <li><a class="btn1" href="index.php?app=mobile_slide&amp;act=add">{$lang.add}</a></li>
+    <!-- {else} -->
+    <li><span>{$lang.add}</span></li>
+    <!-- {/if} -->
+  </ul>
+</div>
+<div class="info">
+  <form method="post" enctype="multipart/form-data" id="slide_form">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">{$lang.sort_order}:</th>
+        <td class="paddingT15 wordSpacing5"><input class="sort_order" name="sort_order" type="text" id="sort_order" value="{$slide.sort_order}" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">上传图片:</th>
+        <td class="paddingT15 wordSpacing5">
+        <input class="infoTableFile2" type="file" name="image" id="image" />
+        {if $slide.image}<br/><br/>
+        <img src="{$site_url}/{$slide.image}" width="200px" />{/if}
+		</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20">
+        	<input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+          	<input class="formbtn" type="reset" name="Reset" value="{$lang.reset}" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

@@ -1,0 +1,28 @@
+ <div class="bbox b10">
+ 	<div class="box_1">
+    	<div class="hd_1"><b>{if $widget_data.cate_name}{$widget_data.cate_name|escape}{else}全部分类{/if}</b></div>
+    	<div style=""class="content_1">
+        	<!-- {foreach from=$widget_data.gcategory item=category name=fe_gcate} -->
+            <a target="_blank" href="{url app=search&cate_id=$category.cate_id}">{$category.cate_name|escape}   ({$category.goods_count|escape})</a>
+        	<!-- {/foreach} -->
+        </div>
+    </div>
+ 	<div class="box_1 hot_1">
+    	<div class="hd_1"><b>热门单品</b></div>
+        <div class="content_1">
+        	<!-- {foreach from=$widget_data.goods_list item=goods name=goods} -->
+            <a target="_blank" title="{$goods.goods_name}" href="{url app=goods&id=$goods.goods_id}">{$goods.goods_name|truncate:28}</a>
+        	<!-- {/foreach} -->
+        </div>
+    </div>
+ 	<div class="box_1">
+    	<div class="hd_1"><b>新入驻店家</b></div>
+    	<div class="content_1">
+        	<!-- {foreach from=$widget_data.store item=store name=store} -->
+            <a target="_blank" class="store_a" href="{url app=store&id=$store.store_id}">{$store.store_name|escape}</a>
+        	<!-- {/foreach} -->
+        </div>
+    </div>
+ </div>
+
+

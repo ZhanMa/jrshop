@@ -1,0 +1,124 @@
+<div class="homeg1 b10">
+	<div class="hd_1">
+        <h3>{$widget_data.model_name}</h3>
+        <span>
+        	<!--{foreach from=$widget_data.keywords item=kw}-->
+            <a href="index.php?app=search&keyword={$kw}">{$kw}</a>
+            <!--{/foreach}-->
+        </span>
+        <div class="clr"></div>
+    </div>
+    <div class="content_1">
+    	<div class="row1">
+        	<script type="text/javascript">
+				$(document).ready(function(){
+					$('.homeg1 .boxout').hover(
+						function(){$(this).css('border','1px solid red');
+								   $(this).children('a').children('dl').show();
+						},
+						function(){$(this).css('border','1px solid #D0D0D0');
+								   $(this).children('a').children('dl').hide();
+						}
+					);	
+				});
+			</script>
+    		<div class="lefth1">
+            	<!--{foreach from=$widget_data.goods_listx item=goods_listx name=goods_listx}-->
+                <div class="boxout" style="left:{$goods_listx.l}px;top:{$goods_listx.t}px;width:{$goods_listx.w2}px;height:{$goods_listx.h2}px;overflow:hidden;">
+                    <a href="index.php?app=goods&id={$goods_listx.goods_id}" target="_blank" style="position:relative;height:{$goods_listx.h2}px;display:block;overflow:hidden;">
+                    	<img title="{$goods_listx.goods_name}" width="{$goods_listx.w}" height="{$goods_listx.h}" src="{$goods_listx.default_image}" />
+                        <dl style="position:absolute;bottom:2px;left:2px;">
+                            <dt style="width:{$goods_listx.w}px;position:relative;"><strong title="{$goods_listx.goods_name}">{$goods_listx.goods_name|truncate:24}</strong><b>{$goods_listx.price|price}</b></dt>
+                        </dl>
+                    </a>
+                </div>
+                <!--{/foreach}-->
+            	<!--{foreach from=$widget_data.images item=images name=images_1}-->
+                <!--{if $smarty.foreach.images_1.iteration gt 4}-->
+                <!--{if $images.ad_image_url}-->
+            	<div class="boxout"  style="left:{$images.left}px;top:{$images.top}px;"> <a href="{$images.ad_link_url}" target="_blank"><img width="{$images.width}" height="{$images.height}" src="{$images.ad_image_url}" /></a></div>
+                <!--{/if}-->
+                <!--{/if}-->
+                <!--{/foreach}-->
+            </div>
+            <div class="righth1">
+            	<div class="container_r">
+                    <div class="slides slides_{$widget_data.model_id} image-box_2">
+                        <!--{if $widget_data.images}-->
+                        <ul class="ks-switchable-content">
+                            <!-- {foreach from=$widget_data.images item=image name=fe_image} -->
+                            <!--{if $smarty.foreach.fe_image.iteration le 4}-->
+                            <li><a href="{$image.ad_link_url}" target="_blank"><img width="328" height="100" src=						                      "{$image.ad_image_url}" /></a></li>
+                            <!--{/if}-->
+                            <!-- {/foreach} -->
+                        </ul>
+                        <div class="ks-switchable-nav">
+                        <!-- {foreach from=$widget_data.images item=image name=fe_image} -->
+                        <!--{if $smarty.foreach.fe_image.iteration le 4}-->
+                        <a href="javascript:;">{$smarty.foreach.fe_image.iteration}</a>
+                        <!--{/if}-->
+                        <!-- {/foreach} -->
+                        </div>
+                        <!--{else}-->
+                        <center style="line-height:285px;">请配置</center>
+                        <!--{/if}-->
+                    </div>
+                    <script>
+                    KISSY.use('switchable', function(S) {
+                       S.Slide('.slides_{$widget_data.model_id}', {
+                       effect: 'scrolly',
+                       easing: 'easeOutStrong'
+                       });
+                    });
+                    </script>
+                    <div class="box_r">
+                    	<!--{foreach from=$widget_data.goods_list item=goods name=goods}-->
+                    	<p><span>[{$goods.gjz}]</span><a title="{$goods.goods_name}" href="index.php?app=goods&id={$goods.goods_id}" target="_blank">{$goods.goods_name|truncate:36}</a><em><b>{$goods.discount}</b>折</em></p>
+                    	<!--{/foreach}-->
+                        <div class="clr"></div>
+                    </div>
+            	</div>
+            </div>
+            <div class="clr"></div>
+    	</div>
+        <div class="row2">
+        	<div class="six-pic-scroll_22 carousel_{$widget_data.model_id} b10">
+              <div class="btn-1">
+                <a class="prev-1 prev" href="javascript:;"></a>
+                <a class="next-1 next" href="javascript:;"></a> 
+              </div>
+              <div class="scroller">
+                 <ul class="ks-switchable-content clearfix">
+                    <!--{foreach from=$widget_data.store item=store name=store} -->
+                    <li>
+                    	<dl>
+                        	<dt><a href="index.php?app=store&id={$store.store_id}" target="_blank"><img width="80" height="80" src="{$store.store_logo}" /></a></dt>
+                    		<dd>
+                        		<span class="user_namexx">{$store.user_name}</span>
+                        		<span class="store_namexx"><a href="index.php?app=store&id={$store.store_id}" target="_blank">{$store.store_name}</a></span>
+                                <span class="addressxx" title="{$store.address}">{$store.address|truncate:22}</span>
+                        	</dd>
+                        </dl>
+                    </li>
+                    <!-- {/foreach} -->
+                  </ul>
+                </div>
+             </div>
+			<script>
+				KISSY.use("switchable", function(S) {
+				var tiny_slide = new S.Carousel('.carousel_{$widget_data.model_id}', {
+				steps:4,
+				effect: 'scrollx',
+				easing: 'easeOutStrong',
+				circular: true,
+				prevBtnCls: 'prev',
+				nextBtnCls: 'next',
+				disableBtnCls: 'disable',
+				aria:false,
+				autoplay:true
+				});
+				});
+            </script>
+        </div>
+    </div>
+</div>

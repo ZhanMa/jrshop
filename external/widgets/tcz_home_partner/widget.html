@@ -1,0 +1,13 @@
+<div class="partnerx b10">
+	<div class="hd_1">
+        <h3>{$widget_data.model_name}</h3>
+    </div>
+    <div class="content_1">
+    	<ul>
+            <!--{foreach from=$widget_data.partner item=partner}-->
+            <li><a {if $smarty.foreach.partner.iteration % 8==0}style="width:116px;overflow:hidden;"{/if} href="{$partner.link}" target="_blank"><img src="{$partner.logo}" alt="{$partner.title|escape}" width="120" height="50" /></a></li>
+           <!--{/foreach}-->
+           <div class="clr"></div>
+       </ul>
+    </div>
+</div>

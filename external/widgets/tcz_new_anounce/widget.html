@@ -1,0 +1,22 @@
+
+
+
+ <div class="bboxx b10">
+ 	<div class="box_1 anounces">
+    	<div class="hd_1"><b>{$widget_data.module_name_a|escape}</b></div>
+    	<div style="height:108px;overflow:hidden;" class="content_1">
+        	<!-- {foreach from=$widget_data.article_a item=article name=article} -->
+            <a target="_blank" href="{url app=article&act=view&article_id=$article.article_id}" title="{$article.title|truncate:30}">{$article.title|escape}</a>
+        	<!-- {/foreach} -->
+        </div>
+    </div>
+ 	<div class="box_1 images">
+    	<div class="hd_1"><b>{$widget_data.module_name_b|escape}</b></div>
+        <div class="content_1">
+        	{if $widget_data.ad_image_url}
+            <a target="_blank" href="{$widget_data.ad_link_url}"><img style="display:block;" width="218" src="{$widget_data.ad_image_url}" /></a>
+        	{/if}
+        </div>
+    </div>
+ </div>
+

@@ -1,0 +1,24 @@
+<div class="module_common_2">
+    <div class="wrap">
+        <div class="wrap_child">
+            <div class="assort_1">
+                <div class="assort_1_wrap">
+                    <!-- {foreach from=$widget_data item=category name=fe_gcate} -->
+                    <dl class="{cycle values='jrjbg_color1,jrjbg_color2,jrjbg_color3,jrjbg_color4,jrjbg_color5'}">
+                        <dt><a href="{url app=search&cate_id=$category.id}">{$category.value|escape}</a></dt>
+                        <dd>
+                            <!-- {foreach from=$category.children item=child} -->
+                            <a href="{url app=search&cate_id=$child.id}">{$child.value|escape}</a> |
+                            <!-- {/foreach} -->
+                        </dd>
+                    </dl>
+                    <!-- {if $smarty.foreach.fe_gcate.iteration % 5 eq 0} -->
+                </div>
+                <div class="assort_1_wrap">
+                    <!-- {/if} -->
+                    <!-- {/foreach} -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

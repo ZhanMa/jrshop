@@ -1,0 +1,22 @@
+<div class="n_re_store b10">
+	<div class="hd_1">
+		<h3>店铺推荐</h3>
+		<p>
+        	<span>最新开店:</span>
+        	<!--{foreach from=$widget_data.store item=store name=store}-->
+        	<a target="_blank" href="{url app=store&id=$store.store_id}">{$store.store_name}</a>
+        	<!--{/foreach}-->
+        </p>
+        <div class="clr"></div>
+	</div>
+	<div class="content_1">
+    	<ul class="container_1">
+            <!--{foreach from=$widget_data.storey item=storey name=storey}-->
+            <li {if $smarty.foreach.storey.iteration % 8==1 || $smarty.foreach.storey.iteration==1 }style="border-left:0px;"{/if}><a title="{$storey.store_name}" target="_blank" href="index.php?app=store&id={$storey.store_id}"><img style="display:block;" width="92" height="78" src="{$storey.store_logo}"/></a></li>
+            <!--{/foreach}-->
+            <div class="clr"></div>
+    	</ul>
+        <div class="leftss"></div>
+        <div class="topss"></div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div id="server_tbd" class="server_1">
+	 <div class="left_1">
+    	<div class="scontent">
+            <!-- {foreach from=$widget_data.article item=data name=data} -->
+            <!--{if !$index}-->
+            <!--{if $smarty.foreach.data.iteration le 5}-->
+            <dl>
+                <dt>{$data.module_name}</dt>
+                <!-- {foreach from=$data.article item=ar name=article} -->
+                <dd><a href="{url app=article&act=view&article_id=$ar.article_id}" target="_blank" title="{$ar.title|escape}">{$ar.title|escape}</a></dd>
+                <!--{/foreach}-->
+            </dl>
+            <!--{/if}-->
+            <!--{else}-->
+            <dl>
+                <dt>{$data.module_name}</dt>
+                <!-- {foreach from=$data.article item=ar name=article} -->
+                <dd><a target="_blank" href="{url app=article&act=view&article_id=$ar.article_id}" title="{$ar.title|escape}">{$ar.title|escape}</a></dd>
+                <!--{/foreach}-->
+            </dl>
+            <!--{/if}-->
+            <!--{/foreach}-->
+            <div class="clr"></div>
+    	</div>
+    </div>
+    <div class="right_1">
+    	<div class="rcontainer">
+        	<div class="rtel"><span class="ricon"></span><span class="rlabel">客服热线:</span><b>{$widget_data.tel}</b></div>
+            <div class="joinin">
+            	<div class="rbox">
+                    <div class="each"><span>入住近邻商城：</span><strong>{$widget_data.tel2}</strong></div>
+                    
+                </div>
+            </div>
+            <div class="email">
+            	<div class="rbox" style="margin:15px 0">
+                    <p><span>客服邮箱：</span><strong>{$widget_data.email}</strong></p>
+                    <p><i>(投诉/建议/高端人才自荐)</i></p>
+                </div>
+            </div>
+        </div>
+	</div>
+    <div class="clr"></div>
+</div>

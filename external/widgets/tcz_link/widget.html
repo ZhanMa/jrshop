@@ -1,0 +1,11 @@
+<div style="margin-bottom:20px;">
+	<!--{if $widget_data.ads} -->
+	<center>
+        <!--{foreach from=$widget_data.ads item=image name=fe_image} -->
+        <a href="{$image.ad_link_url}" target="_blank"><img src=						                      "{$image.ad_image_url}" /></a>
+        <!-- {/foreach} -->
+	</center>
+    <!--{else}-->
+    <center style="height:40px;line-height:40px;">请配置</center>
+    <!--{/if}-->
+</div>

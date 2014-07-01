@@ -1,0 +1,109 @@
+<script type="text/javascript">
+var _d = DialogManager.get('config_dialog');
+_d.setWidth(700);
+_d.setPosition('center');
+$('#_config_widget_form_').submit(function(){
+    stopScroll();
+});
+$('#add_image').click(function(){
+    $(this).before('<div class="field_item">' +
+        '<label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>' +
+        '<p><input type="file" name="ad_image_file[]" /></p>'+
+		'<label>标题:</label>' +
+        '<p style="overflow:hidden;"><input type="text" name="ad_title_url[]" value="{$image.ad_title_url}" />' +
+        '<label>链接地址:</label>' +
+        '<p style="overflow:hidden;"><input type="text" name="ad_link_url[]" value="{$image.ad_link_url}" />' +
+        '<input type="button" value="删除图片" onclick="drop_image(this)" /></p></div>');
+});
+function drop_image(btnObj)
+{
+    $(btnObj).parents('.field_item').remove();
+}
+
+$("select[name='img_recom_id_1']").change(function(){
+    switchRecommend(this.value, 'img_cate_id_1');
+});
+
+switchRecommend($("select[name='img_recom_id_1']").val(), 'img_cate_id_1');
+
+function switchRecommend(recomId, selectName)
+{
+    if (recomId >= 0)
+    {
+        $("select[name='" + selectName + "']").hide();
+    }
+    else
+    {
+        $("select[name='" + selectName + "']").show();
+    }
+}
+
+
+</script>
+<style type="text/css">
+.field_item{float:left !important;}
+</style>
+<!-- {if $options.images} -->
+<!-- {foreach from=$options.images item=image name=image} -->
+<!--{if $smarty.foreach.image.iteration le 8}-->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_image_file[]" />
+    <input type="hidden" name="ad_image_url[]" value="{$image.ad_image_url}" />
+    <img src="{$image.ad_image_url}" height="15" /></p>
+    <label>标题:</label>
+     <p style="overflow:hidden;"><input type="text" name="ad_title_url[]" value="{$image.ad_title_url}" />
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_link_url[]" value="{$image.ad_link_url}" />
+    <input  type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!--{else}-->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_image_file[]" />
+        <input type="hidden" name="ad_image_url[]" value="{$image.ad_image_url}" />
+    <img src="{$image.ad_image_url}" height="15" /></p>
+    <label>标题:</label>
+     <p style="overflow:hidden;"><input type="text" name="ad_title_url[]" value="{$image.ad_title_url}" />
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_link_url[]" value="{$image.ad_link_url}" />
+    <input  type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!--{/if}-->
+<!-- {/foreach} -->
+<div class="clr"></div>
+<!-- {else} -->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_image_file[]" /></p>
+        <label>标题:</label>
+     <p style="overflow:hidden;"><input type="text" name="ad_title_url[]" value="{$image.ad_title_url}" />
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_link_url[]" value="{$image.ad_link_url}" />
+    <input type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<div class="clr"></div>
+<!-- {/if} -->
+<input type="button" id="add_image" value="新增图片" />
+<div class="clr"></div>
+<div class="field_item">
+    <label>模块标题</label>
+    <p><input type="text" name="model_name" value="{$options.model_name}"/></p>
+</div>
+<div class="field_item">
+    <label>商品推荐类型(建议选择分类的最新商品，否则地区和分类将无法使用):</label>
+    <p><select name="img_recom_id_1">
+        <option value="0">请选择...</option>
+        <!-- {foreach from=$recommends key=recom_id item=recom_name} -->
+        <option value="{$recom_id}"{if $options.img_recom_id_1 eq $recom_id} selected="selected"{/if}>{$recom_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select name="img_cate_id_1">
+        <option value="0">请选择分类...</option>
+        <!-- {html_options options=$gcategories selected=$options.img_cate_id_1} -->
+    </select>
+	</p>
+</div>
+<div class="clr"></div>
+
+

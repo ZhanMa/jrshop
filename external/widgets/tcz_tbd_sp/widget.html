@@ -1,0 +1,9 @@
+<div {if !$index}style="margin-top:0px;" {/if} class="special_price">
+	<span></span>
+    <p>
+        <!--{foreach from=$widget_data item=sp}-->
+        <a href="{$sp.link}" target="_blank">{$sp.title}</a><a href="javascript:;">|</a>
+        <!--{/foreach}-->
+    </p>
+    <div class="clr"></div>
+</div>

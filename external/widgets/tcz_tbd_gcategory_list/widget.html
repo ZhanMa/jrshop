@@ -1,0 +1,68 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.item').hover(function(){
+		$('.item .eject').hide();
+		$('.item .shadow').hide();
+		$(this).children('.eject').show();
+		$(this).children('.shadow').show();		
+	},
+	function(){
+		$('.item .eject').hide();
+		$('.item .shadow').hide();
+	}
+	);
+})
+</script>
+
+<ul id="gcategory_t">
+	<!-- {foreach from=$widget_data.gcategory item=category name=fe_gcate} -->
+	<li class="item" style="float:left;">
+    	<div class="t_content" {if $smarty.foreach.fe_gcate.last}style="border-bottom:0px;"{/if}>
+            <h4><a href="{url app=search&cate_id=$category.id}">{$category.value|escape}</a></h4>
+            <div class="child_cate">
+                <!-- {foreach from=$category.children item=child name=child} -->
+                <!--{if $smarty.foreach.child.iteration le 2 }-->
+                <a target="_blank" href="{url app=search&cate_id=$child.id}">{$child.value|escape}</a> 
+                <!--{/if}-->
+                <!-- {/foreach} -->
+            </div>
+            <div class="clr"></div>
+         </div>
+        <div class="eject" style="top:{$category.top}px;">
+        	<div class="child_cates">
+        		<ul>
+            	 <!-- {foreach from=$category.children item=child name=child} -->
+            	<li>
+                	<dl>
+                    	<dt> <a target="_blank" href="{url app=search&cate_id=$child.id}">{$child.value|escape}</a></dt>
+                        <dd class="clearfix">
+                        	<!-- {foreach from=$child.children item=child2 name=fe_child2} -->
+                            <a target="_blank" title="{$child2.value}" href="{url app=search&cate_id=$child2.id}">{$child2.value|escape}</a>
+                            <!--{/foreach}-->
+                            <div class="clr"></div>
+                        </dd>
+                        <div class="clr"></div>
+                    </dl>
+                </li>
+                <!-- {/foreach} -->
+                 <div class="clr"></div>
+            	</ul>
+            </div>
+            <div class="brand_tbd">
+            	<h3>热门品牌</h3> 
+            	 <div class="list_brand clearfix">
+             			<!-- {foreach from=$widget_data.brands item=brand name=fe_brand} -->
+             			<!--{if $brand.tag == $category.value}-->
+             			<a target="_blank" title="{$brand.brand_name}"  href="{url app=search&brand=$brand.brand_name}"><img width="71" height="40" src="{$brand.brand_logo}" /></a>         
+             			<!--{/if}-->
+             			<!--{/foreach}-->  
+                        <div class="clr"></div>
+            	</div>
+            </div>
+            <div class="clr"></div>
+        </div>
+        <div class="shadow"></div>
+    </li>
+    <!-- {/foreach} -->
+    <div class="clr"></div>
+</ul>

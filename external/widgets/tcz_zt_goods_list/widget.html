@@ -1,0 +1,65 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#gcategory_eject .item').hover(function(){
+		$('#gcategory_eject .item .eject').hide();
+		$('#gcategory_eject .item .shadow').hide();
+		$(this).children('.eject').show();
+		$(this).children('.shadow').show();		
+	},
+	function(){
+		$('#gcategory_eject .item .eject').hide();
+		$('#gcategory_eject .item .shadow').hide();
+	}
+	);
+})
+</script>
+<style type="text/css">
+.sp_goods_list{margin:10px 0px;z-index:1;}
+.sp_goods_list .hd_1{width:980px;height:33px;border-bottom:2px solid #B61110;}
+.sp_goods_list .hd_1 span{display:block;width:145px;background:url(./themes/mall/tcz/styles/default/images/tcz/index5.jpg) no-repeat;}
+.sp_goods_list .hd_1 span b{display:block;width:130px;height:33px;line-height:33px;text-align:center;font-size:16px;font-family:"微软雅黑";color:#B61110;}
+.sp_goods_list .ul_sp{width:980px;margin-top:10px;position:relative;z-index:1;}
+.sp_goods_list .ul_sp .ull{position:absolute;left:-35px;top:-20px;display:none;background:#fff;z-index:999;}
+.sp_goods_list .ul_sp .box_1{float:left;border:1px solid #CCCCCC;margin-right:12px;margin-bottom:10px;position:relative;z-index:1;}
+.sp_goods_list .ul_sp .z_index{z-index:999;}
+.sp_goods_list .ul_sp .box_1 .pic_box .a_pic img{z-index:10;display:block;}
+.sp_goods_list .ul_sp .box_1 .pic_box{padding-bottom:50px;z-index:1;}
+.sp_goods_list .ul_sp .box_1 .pic_box .pic_next{position:absolute;top:210px;left:-1px;width:186px;height:50px;background:#AA0000;}
+.sp_goods_list .ul_sp .box_1 .pic_box .pic_next em{display:block;width:116px;height:43px;width: 90px;overflow: hidden;line-height:20px;float:left;}
+.sp_goods_list .ul_sp .box_1 .pic_box .pic_next em a{margin-top:5px;display:block;margin-left:5px;color: #FEFEFE;font-size: 14px;font-family: "微软雅黑E\8F6F\96C5\9ED1";}
+.sp_goods_list .ul_sp .box_1 .pic_box .pic_next b{display:block;height:50px;line-height:50px;font-size:24px;font-family:arial;color: #FEFEFE;margin-right:10px;float:right;}
+.sp_goods_list .ul_sp .box_1 .pic_box .pic_next b span{font-size:20px;margin-right:2px;}
+.sp_goods_list .ul_sp .ull .pic_1{border:1px solid #CCCCCC;}
+.sp_goods_list .ul_sp .ull .pic_1 img{padding:2px;display:block;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.box_1').hover(function(){	
+		$('.box_1').removeClass('z_index');
+		$('.box_1 .pic_box .ull').hide();
+		$(this).addClass('z_index');
+		$(this).children().children('.ull').show();	
+	},function(){
+		$('.box_1 .pic_box .ull').hide();
+	})
+})
+</script>
+<div class="sp_goods_list">
+    	<div class="hd_1"><span><b>{$widget_data.model_name}</b></span></div>
+		<div class="ul_sp">
+        	<!--{if $widget_data.goods_list}-->
+        		<!-- {foreach from=$widget_data.goods_list item=goods name=goods} -->
+            <div class="box_1"{if $smarty.foreach.goods.iteration % 5==0}style="margin-right:0px;margin-left:2px;"{/if}>
+            	<div class="pic_box">
+                	<a class="a_pic" target="_blank" href="index.php?app=goods&id={$goods.goods_id}"><img width="184" height="210" src="{$goods.default_image}" /></a>
+                    <div class="pic_next"><em><a target="_blank" href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></em><b><span>&yen;</span>{$goods.price}</b><div class="clr"></div></div>
+                    <div class="ull">
+                    <div class="pic_1"><a target="_blank" href="index.php?app=goods&id={$goods.goods_id}"  title="{$goods.goods_name}"><img width="250" src="{$goods.big_image}" /></a></div>
+                </div>
+                </div>   
+            </div>
+            <!--{/foreach}-->
+                <!--{/if}-->
+            <div class="clr"></div>
+        </div>
+    </div>

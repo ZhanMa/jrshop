@@ -1,0 +1,10 @@
+<div class="brand_1  b10">
+	<div class="hd_1"><span>品牌推荐</span></div>
+    <ul>
+        <!--{foreach from=$widget_data.brand item=brand name=brand}-->	
+        <li><a target="_blank" href="{url app=search&brand=$brand.brand_name}" title="{$brand.brand_name}"><span style="text-decoration:none;">{$brand.brand_name}</span><img width="90" height="38" src="{$brand.brand_logo}" /></a></li>
+        <!--{/foreach}-->
+        <div class="clr"></div>
+	</ul>
+</div>
+

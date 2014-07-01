@@ -1,0 +1,53 @@
+{if $widget_data}
+<div id="s_gcategory">
+    <div class="s_box b10">
+        <h3><span><a href="{url app=search&cate_id=$widget_data.cate_id}">{$widget_data.cate_name|escape}</a></span></h3>
+        <div style="border:#DADADA 1px solid;border-top:0px;">
+        	<!-- {foreach from=$widget_data.gcategory item=category name=fe_gcate} -->
+        	<div {if $smarty.foreach.fe_gcate.last}style="border:0px;"{/if} class="ul">	 
+            	<div class="li">
+                	<dl>
+                    	<dt {if $widget_data.add_class==$category.cate_id}class="dt_click"{/if}> 
+                        	<a href="{url app=search&cate_id=$category.cate_id}">{$category.cate_name|escape}<em>({$category.goods_count|escape})</em></a>
+                            <span class="span_b_1"></span>
+                        </dt>
+                        
+                        <dd class="clearfix ">
+                        	<!-- {foreach from=$category.children item=child name=child} -->
+							<a {if $widget_data.add_class==$child.cate_id} class="ddd_click" {/if}  title="{$child.cate_name}" href="{url app=search&cate_id=$child.cate_id}"><em></em>{$child.cate_name|truncate:8}<b>({$child.goods_count})</b></a>
+                            <!--{/foreach}-->
+                        </dd>
+                        <div class="clr"></div>
+                    </dl>
+                </div> 
+            </div>
+            <!-- {/foreach} -->
+        </div>
+    </div>
+    
+    
+    <script type="text/javascript">	
+			$('.dt_click span').attr('class','span_b_2');
+			$('.dt_click').next().show();
+			$('.ddd_click').parent().show();
+			$('.ddd_click').parent().parent().children('dt').children('dt span').attr('class','span_b_2');
+		$(document).ready(function(){
+			$('#s_gcategory dl dt span').click(function(){
+				class_value = $(this).attr('class');
+				if(class_value=='span_b_1'){
+					$(this).attr('class','span_b_2');
+					$(this).parent().next().show(500);
+				} else {
+					$(this).attr('class','span_b_1');
+					$(this).parent().next().hide(500);
+				}
+				
+			});
+							
+		});
+        </script>
+    
+    
+ </div>
+
+{/if}

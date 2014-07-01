@@ -1,0 +1,28 @@
+<script type="text/javascript">
+var _d = DialogManager.get('config_dialog');
+_d.setWidth(350);
+_d.setPosition('center');
+</script>
+<div class="field_item">
+    <label>模块名称1:</label>
+    <p><input type="text" name="module_name_a" value="{$options.module_name_a}" /></p>
+</div>
+<div class="field_item">
+    <label>模块名称2:</label>
+    <p><input type="text" name="module_name_b" value="{$options.module_name_b}" /></p>
+</div>
+<div class="field_item">
+    <label>文章分类:</label>
+    <p><select name="a_cate_id_a">
+        <!-- {foreach from=$acategories item=item} -->
+        <option value="{$item.cate_id}" {if $options.a_cate_id_a eq $item.cate_id} selected="selected"{/if}>{$item.cate_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    </p>
+</div>
+<div class="field_item">
+    <label>上传广告图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_image_file" /><input type="hidden" name="ad_image_url" value="{$options.ad_image_url}" /></p>
+    <!-- {if $options.ad_image_url} --><p><img src="{$options.ad_image_url}" height="20" /></p><!-- {/if} -->
+</div>
+

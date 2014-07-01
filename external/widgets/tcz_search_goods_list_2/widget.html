@@ -1,0 +1,29 @@
+<div class="search_gl">
+	<div class="hd_1">
+            <span style="background:none;color:#333;text-indent:10px;font-size:18px;" class="left_n">{$widget_data.model_name}</span>
+            <div class="keyword_1">
+                <!-- {foreach from=$widget_data.keywords item=keyword} -->
+                <a target="_blank" href="index.php?app=search&keyword={$keyword}">{$keyword}</a>
+                <!--{/foreach}-->
+            </div>
+            <span class="right_n"><a target="_blank" href="{$widget_data.more_link}">更多{$widget_data.more_name}</a></span>
+            <div class="clr">
+        </div>
+    </div>
+	<div class="content_1">
+			<!--{if $widget_data.goods_list}-->
+        		<!-- {foreach from=$widget_data.goods_list item=good name=goods} -->
+               		 <ul {if $smarty.foreach.goods.iteration % 5==0}style="margin-right:0px;"{/if}class="item">
+                         <li class="pic-1"><a href="{url app=goods&id=$good.goods_id}" target="_blank" >
+             				<img width="143" height="143" src="{$good.default_image}" /></a></li>
+                          <li class="collect_2"><a title="{$good.goods_name}" href="{url app=goods&id=$good.goods_id}" target="_blank"><span></span></a><a href="javascript:collect_goods({$good.goods_id});"><b></b></a></li>
+                         <li class="desc_2"><a target="_blank" href="{url app=goods&id=$good.goods_id}">{$good.goods_name|escape|truncate:38}</a></li>
+
+                         <li class="tj"><b>&yen;{$good.price}</b><del>&yen;<span>{if $good.market_price neq 0}{$good.market_price}{else}{$good.price}{/if}</span></del></li> 
+                      </ul>
+                <!--{/foreach}-->
+                <!--{/if}-->
+                <div class="clr"></div>
+    </div>
+</div>
+

@@ -1,0 +1,13 @@
+
+<div id="tbd_notice">
+   <h3><span>{$widget_data.module_name|escape}</span></h3>  
+	<ul>
+    	<!-- {foreach from=$widget_data.article_a item=article name=article} -->
+    	<li><span>{$article.ar_cate}</span><a href="{url app=article&act=view&article_id=$article.article_id}" target="_blank" title="{$article.title|escape}">{$article.title|escape}</a></li>
+        <!--{/foreach}-->
+	</ul>
+</div>
+{if $widget_data.ad_image_url}
+<div style="margin-bottom:10px;"><a href="{$widget_data.ad_link_url}" target="_blank"><img width="240" src="{$widget_data.ad_image_url}" /></a></div>
+{/if}
+

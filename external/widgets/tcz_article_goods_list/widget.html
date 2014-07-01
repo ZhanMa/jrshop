@@ -1,0 +1,22 @@
+
+<div id="rank_article">
+      	  <!-- {foreach from=$widget_data.model_name item=model name=model} -->
+          <h3><span>{$model|escape}</span></h3>
+          <!--{/foreach}-->
+      <div class="content_1">
+                <!--{if $widget_data.goods_list.1}-->
+        		<!-- {foreach from=$widget_data.goods_list.1 item=good name=goods} -->
+               		 <dl {if $smarty.foreach.goods.last}style="border-bottom:0px;"{/if}>
+                         <dt class="pic-1"><a href="{url app=goods&id=$good.goods_id}" target="_blank" >
+             				<img width="95" height="95" src="{$good.default_image}" /></a></dt>
+                         <dd class="disc">
+                         	<p><a href="{url app=goods&id=$good.goods_id}" target="_blank">{$good.goods_name|escape|truncate:36}</a></p>
+                         	<p><span>&yen;{$good.price}</span></p>
+                         </dd>
+						<div class="clr"></div>
+                      </dl>
+                <!--{/foreach}-->
+                <!--{/if}-->
+                
+	</div>
+

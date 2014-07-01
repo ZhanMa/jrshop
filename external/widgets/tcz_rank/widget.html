@@ -1,0 +1,40 @@
+<!--{if $widget_data }-->
+<div id="rank_2" class="b10">
+	<h3><span>24小时热销排行</span></h3>
+    <!--{foreach from=$widget_data item=gcategory name=rank}-->
+    <div  class="rank_box">
+    	<div class="title_1" {if $smarty.foreach.rank.first}style="border-top:0px;display:none;"{/if}><a href="{url app=goods&id=$gcategory.goods_id}" target="_blank">{$gcategory.goods_name|truncate:24}</a><b>{$smarty.foreach.rank.iteration}</b></div>
+    	<div  class="ul_1"  {if $smarty.foreach.rank.first}style="display:block;border-top:0px;"{/if}>
+        	<div class="li_1">
+                <dl>
+                	<dt class="pic_1"><a href="{url app=goods&id=$gcategory.goods_id}" target="_blank"><img width="70"  src="{$gcategory.default_image}" /></a></dt>
+                    <dt class="desc_rk"><a href="{url app=goods&id=$gcategory.goods_id}" target="_blank">{$gcategory.goods_name}</a><b>&yen;{$gcategory.price}</b></dt>
+                    <div class="clr"></div>
+                </dl>
+            </div>
+            <div class="rank_num"><b>{$smarty.foreach.rank.iteration}</b></div>
+            <div class="sales_all">已售出{$gcategory.sales}件</div>
+        </div>
+    </div>
+    <!--{/foreach}-->
+</div>
+<!--{/if}-->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#rank_2 .rank_box .title_1').hover(function(){
+		$('#rank_2 .rank_box .ul_1').hide();
+		$('#rank_2 .rank_box .title_1').show();
+		$(this).hide();
+		$(this).next().show();
+	});
+	$('#rank_2 .rank_box').hover(function(){
+		$('#rank_2 .rank_box .sales_all').hide();
+		$(this).children().children('.sales_all').show();	
+	},
+	function(){
+		$('#rank_2 .rank_box .sales_all').hide();
+	}
+	);
+})
+</script>
+

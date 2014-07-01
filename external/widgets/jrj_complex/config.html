@@ -1,0 +1,181 @@
+<script type="text/javascript">
+var _d = DialogManager.get('config_dialog');
+_d.setWidth(350);
+_d.setPosition('center');
+$('#add_leftimage').click(function(){
+    $(this).before('<div class="field_item">' +
+        '<label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>' +
+        '<p><input type="file" name="ad_leftimage_file[]" /></p>'+
+        '<label>链接地址:</label>' +
+        '<p style="overflow:hidden;"><input type="text" name="ad_leftlink_url[]" value="{$image.ad_leftlink_url}" />' +
+        '<input type="button" value="删除图片" onclick="drop_image(this)" /></p></div>');
+});
+$('#add_centerimage').click(function(){
+    $(this).before('<div class="field_item">' +
+        '<label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>' +
+        '<p><input type="file" name="ad_centerimage_file[]" /></p>'+
+        '<label>链接地址:</label>' +
+        '<p style="overflow:hidden;"><input type="text" name="ad_centerlink_url[]" value="{$image.ad_centerlink_url}" />' +
+        '<input type="button" value="删除图片" onclick="drop_image(this)" /></p></div>');
+});
+function drop_image(btnObj)
+{
+    $(btnObj).parents('.field_item').remove();
+}
+$("select[name='tab_recom_id_1[]']").change(function(){
+    switchRecommend(this, 'tab_cate_id_1[]');
+});
+
+switchRecommend($("select[name='tab_recom_id_1[]']"), 'tab_cate_id_1[]');
+
+function switchRecommend(recom, selectName){
+	recomId = $(recom).val();
+    if (recomId >= 0){
+    	$(recom).siblings('select').hide();
+    }else{
+    	$(recom).siblings('select').show();
+    }
+}
+$('#add_tab').click(function(){
+    $(this).before('<div class="tab_item"><div class="field_item">'+
+    	    '<label>页签标题</label>'+
+    	    '<p><input type="text" name="tab_name[]" value="{$tab.tab_name}"/></p>'+
+    		'</div>'+
+    		'<div class="field_item">'+
+    	    '<label>商品推荐类型:</label>'+
+    	    '<p><select name="tab_recom_id_1[]">'+
+    	    '<option value="0">请选择...</option>'+
+    	    '<!-- {foreach from=$recommends key=recom_id item=recom_name} -->'+
+    	    '<option value="{$recom_id}">{$recom_name|escape}</option>'+
+    	    '<!-- {/foreach} -->'+
+    	    '</select>'+
+    	    '<select style="display:none" name="tab_cate_id_1[]">'+
+    	    '<option value="0">请选择分类...</option>'+
+    	    '<!-- {html_options options=$gcategories} -->'+
+    	    '</select><input type="button" value="删除标签" onclick="drop_tab(this)" />'+
+    		'</p>'+
+    	'</div></div><div class="clr"></div>');
+    $("select[name='tab_recom_id_1[]']").unbind('change');
+    $("select[name='tab_recom_id_1[]']").change(function(){
+        switchRecommend(this, 'tab_cate_id_1[]');
+    });
+});
+function drop_tab(btnObj){
+    $(btnObj).parents('.tab_item').remove();
+}
+</script>
+
+<div class="field_item">
+    <label>模块标题</label>
+    <p><input type="text" name="model_name" value="{$options.model_name}"/></p>
+</div>
+<div class="clr"></div>
+<br/>
+<h1>左侧图片</h1>
+<!-- {if $options.leftimg} -->
+<!-- {foreach from=$options.leftimg item=image} -->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_leftimage_file[]" />
+        <input type="hidden" name="ad_leftimage_url[]" value="{$image.ad_leftimage_url}" />
+    <img src="{$image.ad_leftimage_url}" height="15" /></p>
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_leftlink_url[]" value="{$image.ad_leftlink_url}" />
+    <input  type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!-- {/foreach} -->
+<!-- {else} -->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_leftimage_file[]" /></p>
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_leftlink_url[]" value="{$image.ad_leftlink_url}" />
+    <input type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!-- {/if} -->
+<input type="button" id="add_leftimage" value="新增图片" />
+<div class="clr"></div>
+<br/>
+<h1>中间图片</h1>
+<!-- {if $options.centerimg} -->
+<!-- {foreach from=$options.centerimg item=image} -->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_centerimage_file[]" />
+        <input type="hidden" name="ad_centerimage_url[]" value="{$image.ad_centerimage_url}" />
+    <img src="{$image.ad_centerimage_url}" height="15" /></p>
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_centerlink_url[]" value="{$image.ad_centerlink_url}" />
+    <input  type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!-- {/foreach} -->
+<!-- {else} -->
+<div class="field_item">
+    <label>上传图片:(<span>支持 gif|jpg|jpeg|png 格式</span>)</label>
+    <p><input type="file" name="ad_centerimage_file[]" /></p>
+    <label>链接地址:</label>
+    <p style="overflow:hidden;"><input type="text" name="ad_centerlink_url[]" value="{$image.ad_centerlink_url}" />
+    <input type="button" value="删除图片" onclick="drop_image(this)" /></p>
+</div>
+<!-- {/if} -->
+<input type="button" id="add_centerimage" value="新增图片" />
+<div class="clr"></div>
+<h1>标签页</h1>
+<!-- {if $options.tabs} -->
+<!-- {foreach from=$options.tabs item=tab name=tab} -->
+<div class="tab_item">
+<div class="field_item">
+    <label>页签标题</label>
+    <p><input type="text" name="tab_name[]" value="{$tab.tab_name}"/></p>
+</div>
+<div class="field_item">
+    <label>商品推荐类型:</label>
+    <p><select name="tab_recom_id_1[]">
+        <option value="0">请选择...</option>
+        <!-- {foreach from=$recommends key=recom_id item=recom_name} -->
+        <option value="{$recom_id}"{if $tab.tab_recom_id_1 eq $recom_id} selected="selected"{/if}>{$recom_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select name="tab_cate_id_1[]">
+        <option value="0">请选择分类...</option>
+        <!-- {html_options options=$gcategories selected=$tab.tab_cate_id_1} -->
+    </select>
+    <input type="button" value="删除标签" onclick="drop_tab(this)" />
+	</p>
+</div>
+</div>
+<div class="clr"></div>
+<!-- {/foreach} -->
+<!-- {else} -->
+<div class="field_item">
+    <label>页签标题</label>
+    <p><input type="text" name="tab_name[]" value="{$tab.tab_name}"/></p>
+</div>
+<div class="field_item">
+    <label>商品推荐类型:</label>
+    <p><select name="tab_recom_id_1[]">
+        <option value="0">请选择...</option>
+        <!-- {foreach from=$recommends key=recom_id item=recom_name} -->
+        <option value="{$recom_id}">{$recom_name|escape}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select name="tab_cate_id_1[]">
+        <option value="0">请选择分类...</option>
+        <!-- {html_options options=$gcategories} -->
+    </select>
+    <input type="button" value="删除标签" onclick="drop_tab(this)" />
+	</p>
+</div>
+<div class="clr"></div>
+<!-- {/if} -->
+<input type="button" id="add_tab" value="新增页签" />
+<br/>
+<h1>最新商家</h1>
+<div class="field_item">
+    <label>显示个数</label>
+    <p><input type="text" name="amount_2" value="{$options.amount_2}"/></p>
+</div>
+<div class="field_item">
+    <label>关键字（多个关键字用空格隔开）</label>
+    <p><textarea name="kw" style="width:300px;height:100px;">{$options.kw}</textarea></p>
+</div>

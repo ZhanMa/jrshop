@@ -1,0 +1,25 @@
+<div class="re_brand_1 carousel_brand b10">
+  <h3><span>推荐品牌</span></h3>
+  <div class="scroller">
+     <ul class="ks-switchable-content clearfix">
+     	<!--{foreach from=$widget_data.ads item=image name=fe_image} -->
+        <li {if $smarty.foreach.fe_image.iteration % 3==0}style="border-right:0px;"{/if}><a href="{$image.ad_link_url}" target="_blank" title="{$image.ad_title}"><img width="134" height="80" src="{$image.ad_image_url}" /></a></li>
+        <!-- {/foreach} -->
+      </ul>
+    </div>
+ </div>
+<script>
+KISSY.use("switchable", function(S) {
+var tiny_slide = new S.Carousel('.carousel_brand', {
+steps:3,
+effect: 'scrollx',
+easing: 'easeOutStrong',
+circular: true,
+prevBtnCls: 'prev',
+nextBtnCls: 'next',
+disableBtnCls: 'disable',
+aria:false,
+autoplay:true
+});
+});
+</script>

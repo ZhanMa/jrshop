@@ -1,0 +1,26 @@
+<div class="slides slides{$widget_data.model_id} image-box">
+    <!--{if $widget_data}-->
+    <div class="scroller">
+    	<ul class="ks-switchable-content clearfix">
+       	 	<!-- {foreach from=$widget_data.ads item=image name=fe_image} -->
+        	<li><a href="{$image.ad_link_url}" target="_blank"><img width="520"	height="220" src="{$image.ad_image_url}" /></a></li>
+        	<!-- {/foreach} -->
+    	</ul>
+    </div>
+    <div class="ks-switchable-nav">
+   	 	<!-- {foreach from=$widget_data.ads item=image name=fe_image} -->
+    	<a href="{$image.ad_link_url}" {if $smarty.foreach.fe_image.first}class="ks-active"{/if} target="_blank">{$image.ad_title}</a>
+    	<!-- {/foreach} -->
+    </div>
+    <!--{else}-->
+    <center style="line-height:285px;">请配置</center>
+    <!--{/if}-->
+</div>
+<script>
+KISSY.use('switchable', function(S) {
+   S.Slide('.slides{$widget_data.model_id}', {
+   effect: 'scrolly',
+   easing: 'easeOutWeak'
+   });
+});
+</script>

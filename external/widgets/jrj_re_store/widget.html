@@ -1,0 +1,38 @@
+<script type="text/javascript">
+$(function(){
+	$('.store_tab > li').each(function(i){
+		$(this).mouseover(function(){
+			$(this).addClass('current');
+			$(this).siblings('li').removeClass('current');
+			$('.store_list').eq(i).show();
+			$('.store_list').eq(i).siblings('ul').hide();
+		});
+	});
+});
+</script>
+<div class="homeg2 b10">
+	<div class="hd_1">
+		<h3>{$widget_data.model_name}</h3>
+        <div class="clr"></div>
+	</div>
+	<div class="content_3">
+	<div class="lefth1">
+		<ul class="store_tab">
+            <!--{foreach from=$widget_data.scategory item=scategory name=scategory}-->
+            <li {if $smarty.foreach.scategory.first}class="current"{/if}><i class="icon_{$smarty.foreach.scategory.iteration}">&nbsp;&nbsp;&nbsp;&nbsp;</i>&nbsp;{$scategory.cate_name}</li>
+            <!--{/foreach}-->
+            <div class="clr"></div>
+    	</ul>
+	</div>
+	<div class="righth1">
+		<!--{foreach from=$widget_data.store_list item=list name=list}-->
+		<ul class="store_list" {if !$smarty.foreach.list.first}style="display:none"{/if}>
+            <!--{foreach from=$list item=storey name=storey}-->
+            <li><a title="{$storey.store_name}" target="_blank" href="index.php?app=store&id={$storey.store_id}"><img style="display:block;" width="85" height="85" src="{$storey.store_logo}"/></a></li>
+            <!--{/foreach}-->
+            <div class="clr"></div>
+    	</ul>
+    	<!--{/foreach}-->
+	</div>
+    </div>
+</div>

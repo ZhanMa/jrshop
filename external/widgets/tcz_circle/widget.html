@@ -1,0 +1,28 @@
+<div class="six-pic-scroll_2 carousel-{$widget_data.model_id} b10">
+  <div class="btn-1">
+    <a class="prev-1 prev" href="javascript:;"></a>
+    <a class="next-1 next" href="javascript:;"></a> 
+  </div>
+  <div class="scroller">
+     <ul class="ks-switchable-content clearfix">
+     	<!--{foreach from=$widget_data.ads item=image name=fe_image} -->
+        <li><a href="{$image.ad_link_url}" target="_blank"><img width="166"height="83"src="{$image.ad_image_url}" /></a></li>
+        <!-- {/foreach} -->
+      </ul>
+    </div>
+ </div>
+<script>
+KISSY.use("switchable", function(S) {
+var tiny_slide = new S.Carousel('.carousel-{$widget_data.model_id}', {
+steps:3,
+effect: 'scrollx',
+easing: 'easeOutStrong',
+circular: true,
+prevBtnCls: 'prev',
+nextBtnCls: 'next',
+disableBtnCls: 'disable',
+aria:false,
+autoplay:true
+});
+});
+</script>

@@ -1,0 +1,61 @@
+<div class="tuangou b10">
+  <div class="hd-1"><h3>{$widget_data.model_name}</h3><a href="{url app=search&act=groupbuy}" target="_blank">更多</a><div class="clr"></div></div>
+  <div class="container_1">
+            <!--{foreach from=$widget_data.groupbuy_list item=groupbuy name=fe_groupbuy}-->
+           <div class="each1">
+            	<div class="position-price"><b>&yen;</b><span>{$groupbuy.price}</span></div>
+                <div class="content-1">
+                	<p><a href="{url app=groupbuy&id=$groupbuy.group_id}" target="_blank">{$groupbuy.group_name|escape|truncate:45}</a></p>
+                    <dl>		
+                    	<dt><a target="_blank" href="{url app=groupbuy&id=$groupbuy.group_id}"><img width="178"height="178"src="{$groupbuy.default_image}" /></a></dt>
+                    </dl>
+                </div>
+                <div class="gb_info">折扣<b>{$groupbuy.discount}</b>折<span><em>节省</em><strong>&yen;{$groupbuy.save}</strong></span></div>
+                <script language="javascript">$(function(){new timer('data_{$smarty.foreach.fe_groupbuy.iteration}','tuanend_{$smarty.foreach.fe_groupbuy.iteration}')})</script>
+                <input type="hidden" id="data_{$smarty.foreach.fe_groupbuy.iteration}" value="{$groupbuy.end_time|date:Y-m-d h:i:s}"/>
+                <div id="tuanend_{$smarty.foreach.fe_groupbuy.iteration}" class="countdown"></div>
+          </div>        
+    	 <!--{/foreach}-->
+   </div>
+</div>
+
+<script language="JavaScript" type="text/javascript">
+/*
+计算时间差
+*/
+Date.prototype.diff=function (date)
+{
+	var y=date-this,x=Math.abs(y),d,h,m,s;
+
+	d=parseInt(x/86400000);
+	x%=86400000;
+	h=parseInt(x/3600000);
+	x%=3600000;
+	m=parseInt(x/60000);
+	x%=60000;
+	s=parseInt(x/1000);
+	return {
+		text:("<div class='left_time'><span>"+"剩余"+"</span><font face=黑体 size=3><b>"+d+"</font></b>"+"天&nbsp;"+"<font face=黑体 size=3><b>"+h+"</font></b>"+"小时&nbsp;"+"<font face=黑体 size=3><b>"+m+"</font></b>"+"分&nbsp;"+"<font face=黑体 size=3><b>"+s+"</font></b>"+"秒"+"</div>").replace(/0(\d\d)/g,'$1')
+		,value:y
+	};
+}
+
+/*
+计时器类
+*/
+timer=function (from,shower)
+{
+
+	var T=document.getElementById(from).value;
+	T=new Date(T.replace(/-/g,'/'));
+	var P=document.getElementById(shower);
+
+	(function ()
+	{
+		var diff=new Date().diff(T);
+		P.innerHTML=diff.text;
+		setTimeout(arguments.callee,1000)
+	})()
+
+}
+</script>

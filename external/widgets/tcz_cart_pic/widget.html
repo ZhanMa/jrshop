@@ -1,0 +1,9 @@
+
+    <div class="cart_pic b10">
+        <!-- {foreach from=$widget_data.ads item=image name=fe_image} -->
+        <a {if $smarty.foreach.fe_image.iteration % 4 == 0}style="margin-right:0px;margin-left:1px;"{/if} href="{$image.ad_link_url}" target="_blank"><img width="235"height="146"src=						                      "{$image.ad_image_url}" /></a>
+        <!-- {/foreach} -->
+        <div class="clr"></div>
+    </div>
+
+
