@@ -32,4 +32,32 @@ class  IndexApp extends MobileApp{
 		}
 		$this->success(array('goods'=>$ret));
 	}
+	
+	function goodscat(){
+		 $fid = intval($this->reqdata->fid); 
+		 $fid = $fid?$fid:0;
+		 $onlyroot = $this->reqdata->onlyroot?true:false;
+		 $gcategory_mod =& bm('gcategory', array('_store_id' => 0));
+	     $gcategory = $gcategory_mod->get_list($fid, true);
+	     import('tree.lib');
+	     $tree = new Tree();
+	     if($onlyroot){
+	     	$tree->setTree($gcategory, 'cate_id', 'parent_id', 'cate_name');
+	     	$data = $tree->getArrayList($fid);
+	     	$this->success(array('cats'=>$data));
+	     }
+         $gcategories = $gcategory;
+         foreach ($gcategory as $val)
+         {
+             $result = $gcategory_mod->get_list($val['cate_id'], true);
+             $result = array_slice($result, 0, $this->options['amount']);
+             $gcategories = array_merge($gcategories, $result);
+         }
+         
+         $tree->setTree($gcategories, 'cate_id', 'parent_id', 'cate_name');
+         
+         $data = $tree->getArrayList($fid);
+         
+         $this->success(array('cats'=>$data));
+	}
 }

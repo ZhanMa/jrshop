@@ -24,6 +24,11 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'logout';
 	$reqdata['token'] = '9f6216bc5a380bacf70de98962becec3';
+}elseif($tname=='goodscat'){
+	$_REQUEST['app'] = 'index';
+	$_REQUEST['act'] = 'goodscat';
+	//$reqdata['fid'] = 4;
+	$reqdata['onlyroot'] = 1;
 }
 
 

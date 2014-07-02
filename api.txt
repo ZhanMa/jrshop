@@ -65,5 +65,13 @@ num （选填） 条数 默认15个
 goods数组
 {"code":200,"done":true,"goods":[{"goods_id":"144","goods_name"...
 
+6\获取商品分类
+app=index&act=goodscat
+参数
+fid (选填) 父节点id默认为0 从根节点开始取 例如获取id为4的所有子节点则此参数传4
+onlyroot (选填) 是否只显示当前层级 默认false
+返回结果
+cats 数组 子节点会嵌套在父节点的children属性中
+{"code":200,"done":true,"cats":[{"id":"4","value":"\u9910\u996e","children":[... 
 
 
