@@ -29,6 +29,9 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'goodscat';
 	//$reqdata['fid'] = 4;
 	$reqdata['onlyroot'] = 1;
+}elseif($tname=='getstore'){
+	$_REQUEST['app'] = 'index';
+	$_REQUEST['act'] = 'getstore';
 }
 
 

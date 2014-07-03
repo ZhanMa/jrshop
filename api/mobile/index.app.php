@@ -60,4 +60,21 @@ class  IndexApp extends MobileApp{
          
          $this->success(array('cats'=>$data));
 	}
+	
+	
+	function getstore(){
+		$this->reqdata->num = intval($this->reqdata->num);
+		$num = $this->reqdata->num?$this->reqdata->num:15;
+		$store_mod =& m('store');
+		$stores = $store_mod->find(array(
+				'limit' => "20",
+				'order' => "add_time DESC",
+				'fields'=>'store_id,store_name,store_logo'
+		));
+		$res = array();
+		foreach ($stores as $v){
+			$res[] = array('id'=>$v['store_id'],'name'=>$v['store_name'],'logo'=>SITE_URL.'/'.$v['store_logo']);
+		}
+		$this->success(array('stores'=>$res));
+	}
 }
