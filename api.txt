@@ -74,4 +74,9 @@ onlyroot (选填) 是否只显示当前层级 默认false
 cats 数组 子节点会嵌套在父节点的children属性中
 {"code":200,"done":true,"cats":[{"id":"4","value":"\u9910\u996e","children":[... 
 
-
+7\获取最新店铺
+app=index&act=getstore
+num （选填） 条数 默认15个
+返回结果
+stores数组
+{"code":200,"done":true,"stores":[{"id":"52","name":"\u67ff\u7ea2\u9662","logo"......

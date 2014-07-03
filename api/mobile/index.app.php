@@ -68,6 +68,7 @@ class  IndexApp extends MobileApp{
 		$store_mod =& m('store');
 		$stores = $store_mod->find(array(
 				'limit' => "20",
+				'conditions'=>"store_logo<>''",
 				'order' => "add_time DESC",
 				'fields'=>'store_id,store_name,store_logo'
 		));
