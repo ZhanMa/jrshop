@@ -96,13 +96,18 @@ class CartApp extends MallbaseApp
 
         $tmp = time() - 12*3600;
         $ordergoods_mod = m('ordergoods');
-        $conditions = ' AND goods_id = '.$spec_id.' AND add_time > '.$tmp;
-        $ordergoods = $ordergoods_mod->find(array(
+        $conditions = ' AND goods_id = '.$spec_id.' AND add_time > '.$tmp." and  buyer_id=".$user['user_id'];
+        /* $ordergoods = $ordergoods_mod->find(array(
         		'conditions' => '1=1' . $conditions,
         		'join'  => 'belongs_to_order',
-        ));
+        )); */
+        $sql ="SELECT * FROM ecm_order o JOIN ecm_order_goods og 
+        using(order_id) where goods_id = ".$spec_info['goods_id']."
+        and  o.add_time > $tmp and  o.buyer_id=".$user['user_id'];
+        $ordergoods = $ordergoods_mod->getOne($sql);
+        $mysql = $sql;
 		if(!empty($ordergoods)){
-			$this->json_error('12小时内相同物品只能购买一次');
+			$this->json_error('12小时内相同物品只能购买一次',array('sql'=>$mysql));
 			
 			return;
 		}
@@ -241,7 +246,7 @@ class CartApp extends MallbaseApp
         //执行购买并发送短信
         
         
-        $this->json_result(array(), '短信已成功发送,请注意查收');
+        $this->json_result(array('sql'=>$mysql), '短信已成功发送,请注意查收');
     }
 
     /**

@@ -47,6 +47,7 @@ class MobileApp extends FrontendApp
 	 * 102 用户名密码不能为空
 	 * 103 用户名或密码错误
 	 * 104 未获取到appid
+	 * 105 未获取到catid
 	 * @param unknown $msg
 	 * @param number $code
 	 */
