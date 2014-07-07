@@ -37,6 +37,10 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'goodslist';
 	$reqdata['catid'] = 22;
 	$reqdata['page'] = 0;
+}elseif($tname=='goodsinfo'){
+	$_REQUEST['app'] = 'goods';
+	$_REQUEST['act'] = 'goodsinfo';
+	$reqdata['id'] = 142;
 }
 
 
