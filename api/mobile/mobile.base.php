@@ -7,6 +7,10 @@ class MobileApp extends FrontendApp
 {
 	var $reqdata = array();
 	function __construct(){
+		if(!defined(TEST_ROOT)){
+			header('Content-type: text/json');
+		}
+		
 		$this->reqdata = $_REQUEST['datas'];
 		if(get_magic_quotes_gpc()){
 			$this->reqdata = stripslashes_deep($this->reqdata);
