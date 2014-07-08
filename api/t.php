@@ -27,8 +27,20 @@ if($tname=='login'){
 }elseif($tname=='goodscat'){
 	$_REQUEST['app'] = 'index';
 	$_REQUEST['act'] = 'goodscat';
-	//$reqdata['fid'] = 4;
-	//$reqdata['onlyroot'] = 1;
+	$reqdata['fid'] = 4;
+	$reqdata['onlyroot'] = 1;
+}elseif($tname=='getstore'){
+	$_REQUEST['app'] = 'index';
+	$_REQUEST['act'] = 'getstore';
+}elseif($tname=='goodslist'){
+	$_REQUEST['app'] = 'goods';
+	$_REQUEST['act'] = 'goodslist';
+	$reqdata['catid'] = 22;
+	$reqdata['page'] = 0;
+}elseif($tname=='goodsinfo'){
+	$_REQUEST['app'] = 'goods';
+	$_REQUEST['act'] = 'goodsinfo';
+	$reqdata['id'] = 142;
 }
 
 

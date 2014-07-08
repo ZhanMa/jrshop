@@ -22,7 +22,8 @@ $.post("http://www.jrjlife.com/api/m.php?app=user&act=login",{datas:"{\"appid\":
 102 用户名密码不能为空
 103 用户名或密码错误
 104 未获取到appid
-
+105 未获取到catid
+106 商品id错误
 ----------------------------------------------
 以下是详细接口部分
 ----------------------------------------------
@@ -74,4 +75,37 @@ onlyroot (选填) 是否只显示当前层级 默认false
 cats 数组 子节点会嵌套在父节点的children属性中
 {"code":200,"done":true,"cats":[{"id":"4","value":"\u9910\u996e","children":[... 
 
+7\获取最新店铺
+app=index&act=getstore
+参数
+num （选填） 条数 默认15个
+返回结果
+stores数组
+{"code":200,"done":true,"stores":[{"id":"52","name":"\u67ff\u7ea2\u9662","logo"......
+
+8\根据分类ID分页获取商品列表
+app=goods&act=goodslist
+参数
+catid 分类id
+page 页码（从0开始）
+pagesize 每页条数 默认15
+返回 总条数和商品列表
+{"code":200,"done":true,"count":"49","list":{"145":{"goods_id":"145","store_id":"57","type":"material","goods_name":"....
+
+
+9\根据商品id获取商品信息
+app=goods&act=goodsinfo
+参数
+id 商品id
+
+返回 商品信息（goods）
+字段说明 
+store_id 店铺id 
+brand 品牌
+market_price 市场价格 
+price 售价
+stock 库存量 
+orders 已经有多少人购买 
+imgs 商品图片（json数组包括大图和缩略图）
+description 商品描述（json数组 形如{isimg:1,imgurl:'...',txt:'...'} ）
 
