@@ -28,7 +28,7 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'index';
 	$_REQUEST['act'] = 'goodscat';
 	//$reqdata['fid'] = 4;
-	$reqdata['onlyroot'] = 1;
+	//$reqdata['onlyroot'] = 1;
 }
 
 
