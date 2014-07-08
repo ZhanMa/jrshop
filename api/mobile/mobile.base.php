@@ -7,7 +7,7 @@ class MobileApp extends FrontendApp
 {
 	var $reqdata = array();
 	function __construct(){
-		if(!defined(TEST_ROOT)){
+		if(!defined('TEST_ROOT')){
 			header('Content-type: text/json');
 		}
 		
@@ -28,7 +28,8 @@ class MobileApp extends FrontendApp
 	
 	function _init_visitor()
 	{
-		$this->visitor = new MobileVisitor($this->reqdata->appid,$this->reqdata->token);
+		$this->visitor = env('visitor',new MobileVisitor($this->reqdata->appid,$this->reqdata->token));
+		
 	}
 	
 	function _init_session(){
@@ -53,11 +54,20 @@ class MobileApp extends FrontendApp
 	 * 104 未获取到appid
 	 * 105 未获取到catid
 	 * 106 商品id错误
+	 * 107 店家不能购买商品
+	 * 108 需要登录后操作
+	 * 109 未绑定手机
+	 * 110 相同物品12小时内只能购买一次
+	 * 111 库存不足
 	 * @param unknown $msg
 	 * @param number $code
 	 */
-	function error($code=0,$msg){
-		echo json_encode(array('code'=>$code,'msg'=>$msg,'done'=>false));
+	function error($code=0,$msg,$val=array()){
+		$e = array('code'=>$code,'msg'=>$msg,'done'=>false);
+		if($val){
+			$e = array_merge($e,$val);
+		}
+		echo json_encode($e);
 		exit();
 	}
 	
@@ -95,16 +105,22 @@ class MobileVisitor extends BaseVisitor
 		if ($tokeninfo)
 		{
 			$uid = $tokeninfo['uid'];
+			$this->info['user_id'] = $uid;
+			$this->has_login = true;
 			$mod_user =& m('member');
 			$userinfo = $mod_user->get(array(
 					'conditions'    => "user_id = '{$uid}'",
 					'join'          => 'has_store',                 //关联查找看看是否有店铺
 					'fields'        => 'user_id, user_name, reg_time, last_login, last_ip, store_id',
-			));
-			
+			)); 
+			$userinfo2 = $this->get_detail();
+			$userinfo = array_merge($userinfo,$userinfo2);
+			unset($userinfo['password']);
 			if($userinfo){
 				$this->info         = $userinfo;
 				$this->has_login    = true;
+			}else{
+				$this->has_login    = false;
 			}
 			
 		}

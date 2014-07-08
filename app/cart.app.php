@@ -42,6 +42,7 @@ class CartApp extends MallbaseApp
      */
     function add()
     {
+    	
         $spec_id   = isset($_GET['spec_id']) ? intval($_GET['spec_id']) : 0;
         $quantity   = isset($_GET['quantity']) ? intval($_GET['quantity']) : 0;
         if (!$spec_id || !$quantity)
