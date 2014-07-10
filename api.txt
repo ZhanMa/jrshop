@@ -122,3 +122,26 @@ app=goods&act=buy
 id 商品id
 num 购买数量 选填默认1
 返回code=200
+
+11\首页团购信息
+app=groupbuy&act=adv
+参数
+无
+返回 团购信息 
+返回字段说明 
+nothing 是否有团购信息 0有 1没有 
+servertime 服务器端当前时间戳
+endtime 团购结束的时间戳
+goods_id 团购的商品id
+goods_price 团购的商品原价
+group_id 这条团购的id
+group_price 团购价
+name 团购商品名称
+image 商品图片
+
+12\获取当前服务器时间戳
+参数
+无
+app=groupbuy&act=servertime
+返回 服务器当前时间戳 用于前台校准
+

@@ -110,6 +110,16 @@ $(function(){
         <div class="datacall_div">
             <span class="span_left">{$lang.description}</span><span class="span_right"><input class="infoTableInput2" id="description" type="text" name="description" value="{$data_call.description|escape}" /></span>
         </div>
+        <div class="datacall_div">
+            <span class="span_left">数据分类</span><span class="span_right">
+            <select name='type'>
+                    {html_options options=$data_type selected=$data_call.type}
+                </select>
+            </span>
+        </div>
+        <div class="datacall_div">
+            <span class="span_left">店铺id 用英文逗号“,”隔开</span><span class="span_right"><input style='width:800px' class="infoTableInput2" id="description" type="text" name="store_id" value="{$data_call.spe_data.store_id|escape}" /></span>
+        </div>
         <table class="infoTable" style="border-bottom:1px solid #C1DFF3;padding-bottom:20px;margin-bottom:20px;">
             
             <tr>

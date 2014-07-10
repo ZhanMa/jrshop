@@ -23,9 +23,10 @@ class DatacallModule extends IndexbaseModule
     function index()
     {
         $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-        if (!$this->is_cached($id))                         //检查缓存是否过期
+        if (1)                         //检查缓存是否过期
         {
             $data = $this->_datacall_mod->getOne($id);
+           
             if (empty($data))
             {
                 return;
@@ -117,7 +118,32 @@ class DatacallModule extends IndexbaseModule
                 }
                 $this->js_write($content);
                 $this->js_write($data['footer']);
-                $this->save_cache($id);
+                //$this->save_cache($id);
+            }elseif($data['type'] == 'store'){
+            	if(!empty($data['spe_data']['store_id'])){
+            		$ids = $data['spe_data']['store_id'];
+            		
+            		$mstore = m('store');
+            		
+            		$sql = "SELECT * FROM ecm_store where store_id in ($ids) order by store_id desc";
+            		
+            		$list = $mstore->getAll($sql);
+            		
+            		$this->js_write($data['header']);
+            		
+            		$body = $data['body'];
+            		foreach ($list as $item){
+            			$item['store_name'] = empty($this->name_length) ? $item['store_name'] : sub_str($item['store_name'], $this->name_length*2,false);
+            			$code = str_replace("{store_name}", $item['store_name'], $body);
+            			$code = str_replace("{store_logo}", site_url() . '/' .$item['store_logo'], $code);
+            			$code = str_replace("{store_url}", site_url() ."/index.php?app=store&id=".$item['id'], $code);
+            			$content .= $code;
+            			unset($code);
+            		}
+            		$this->js_write($content);
+            		$this->js_write($data['footer']);
+            		//$this->save_cache($id);
+            	}
             }
         }
         $this->doc_output();

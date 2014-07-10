@@ -23,7 +23,7 @@
             <input type="checkbox" class="checkitem" value="{$key}" />
             </td>
             <td>{$val.description|escape}</td>
-            <td class="table_center"><!--{if $val.type eq 'goods'}-->{$lang.data_goods}<!--{/if}--></td>
+            <td class="table_center"><!--{if $val.type eq 'goods'}-->{$lang.data_goods}<!--{else}-->店铺数据<!--{/if}--></td>
             <td class="handler">
             <a href="index.php?module=datacall&amp;act=edit&amp;id={$key}">{$lang.edit}</a>
                 |

@@ -55,6 +55,11 @@ class DatacallModule extends AdminbaseModule
                     'asc_desc'   => 'desc',
                 ),
             );
+            $data_type = array(
+            		'goods'=>'å•†å“',
+            		'store'=>'åº—é“º'
+            );
+            $this->assign('data_type',$data_type);
             $this->import_resource(array('script' => 'jquery.plugins/jquery.validate.js,mlselection.js'));
             $this->assign('mgcategories', $this->_get_mgcategory_options(0));
             $this->assign('content_charset', $content_charset);
@@ -67,7 +72,9 @@ class DatacallModule extends AdminbaseModule
         }
         else
         {
+        	$this->type = $_POST['type']?$_POST['type']:$this->type;
             $res = $this->handle_post_data($_POST);
+           
             $data = array(
                 'type'            => $this->type,
                 'description'     => $res['same']['description'],
@@ -120,6 +127,11 @@ class DatacallModule extends AdminbaseModule
                 'desc' => Lang::get('desc'),
                 'asc'  => Lang::get('asc'),
             );
+            $data_type = array(
+            		'goods'=>'å•†å“',
+            		'store'=>'åº—é“º'
+            );
+            $this->assign('data_type',$data_type);
             $this->import_resource(array('script' => 'jquery.plugins/jquery.validate.js,mlselection.js'));
             $this->assign('mgcategories', $this->_get_mgcategory_options(0));
             $this->assign('search', $search_options);
@@ -127,11 +139,12 @@ class DatacallModule extends AdminbaseModule
             $this->assign('sort_order_by', $sort_order_by);
             $this->assign('parents', $this->_get_options());
             $this->assign('data_call',$data_call);
-            $this->assign('type', $this->type);
+            $this->assign('type', $data_call['type']);
             $this->display('datacall.form.html');
         }
         else
         {
+        	$this->type = $_POST['type']?$_POST['type']:$this->type;
             $res = $this->handle_post_data($_POST);//print_r(unserialize($res['template']));exit;
              $data = array(
                 'type'            => $this->type,
@@ -195,6 +208,11 @@ class DatacallModule extends AdminbaseModule
                 //'recommend'  => trim($post['recommend']),
             );
         }
+        if($this->type=='store'){
+        	$unsame = array(
+        			'store_id' => trim($post['store_id'])
+        	);
+        }
         return array('same' => $same, 'unsame' => $unsame, 'template' => $template);
     }
 
@@ -250,7 +268,7 @@ class DatacallModule extends AdminbaseModule
         }
         return $res;
     }
-    /* ¹¹Ôì²¢·µ»ØÊ÷ */
+    /* ï¿½ï¿½ï¿½ì²¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     function &_tree($gcategories)
     {
         import('tree.lib');
@@ -259,7 +277,7 @@ class DatacallModule extends AdminbaseModule
         return $tree;
     }
 
-    /* È¡µÃ¿ÉÒÔ×÷ÎªÉÏ¼¶µÄÉÌÆ··ÖÀàÊı¾İ */
+    /* È¡ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     function _get_options($except = NULL)
     {
         $gcategories = $this->_gcategory_mod->get_list();

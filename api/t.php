@@ -46,6 +46,14 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'buy';
 	$reqdata['id'] = 4;
 	$reqdata['token'] = 'd4a9526c1a799170e4f73f0e16d53816';
+}elseif($tname =='gbuy'){
+	$_REQUEST['app'] = 'groupbuy';
+	$_REQUEST['act'] = 'adv';
+	$reqdata['token'] = 'd4a9526c1a799170e4f73f0e16d53816';
+}elseif($tname =='servertime'){
+	$_REQUEST['app'] = 'groupbuy';
+	$_REQUEST['act'] = 'servertime';
+	$reqdata['token'] = 'd4a9526c1a799170e4f73f0e16d53816';
 }
 
 
