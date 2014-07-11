@@ -128,7 +128,7 @@ class GoodsModel extends BaseModel
         $gstat_mod =& m('goodsstatistics');
         $cg_table  = DB_PREFIX . 'category_goods';
 
-        $fields = "g.goods_id, g.store_id, g.type, g.goods_name, g.cate_id, g.cate_name, g.brand, g.spec_qty, g.spec_name_1, g.spec_name_2, g.if_show, g.closed, g.add_time, g.recommended, g.default_image, " .
+        $fields = "g.market_price,g.goods_id, g.store_id, g.type, g.goods_name, g.cate_id, g.cate_name, g.brand, g.spec_qty, g.spec_name_1, g.spec_name_2, g.if_show, g.closed, g.add_time, g.recommended, g.default_image, " .
                 "gs.spec_id, gs.spec_1, gs.spec_2, gs.color_rgb, gs.price, gs.stock, " .
                 "s.store_name, s.region_id, s.region_name, s.credit_value, s.sgrade, " .
                 "gst.views, gst.sales, gst.comments";
