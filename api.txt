@@ -145,3 +145,24 @@ image 商品图片
 app=groupbuy&act=servertime
 返回 服务器当前时间戳 用于前台校准
 
+13\获取店铺信息
+app=store&act=info
+参数
+id 店铺id
+返回
+店铺信息info
+
+14\获取店铺的所有商品
+app=store&act=goods
+参数
+id 店铺id
+page 第几页 从0开始
+pagesize 每页条数
+返回商品列表
+
+15\关注店铺或商品（必须带token）
+app=store&act=addfavorite
+参数
+id 店铺id或者商品id
+type（字符串） 关注的类型 goods商品 store 店铺 
+

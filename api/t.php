@@ -53,7 +53,21 @@ if($tname=='login'){
 }elseif($tname =='servertime'){
 	$_REQUEST['app'] = 'groupbuy';
 	$_REQUEST['act'] = 'servertime';
-	$reqdata['token'] = 'd4a9526c1a799170e4f73f0e16d53816';
+	$reqdata['token'] = 'f0c372c7c7653bbf00986bec467635eb';
+}elseif($tname=='storeinfo'){
+	$_REQUEST['app'] = 'store';
+	$_REQUEST['act'] = 'info';
+	$reqdata['id'] = 34;
+}elseif($tname=='storegoods'){
+	$_REQUEST['app'] = 'store';
+	$_REQUEST['act'] = 'goods';
+	$reqdata['id'] = 47;
+}elseif($tname=='addfavorite'){
+	$_REQUEST['app'] = 'store';
+	$_REQUEST['act'] = 'addfavorite';
+	$reqdata['id'] = 104;
+	$reqdata['type'] = 'goods';
+	$reqdata['token'] = 'ba12414321b4fba01200a0d85e3762d8';
 }
 
 

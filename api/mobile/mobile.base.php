@@ -59,6 +59,7 @@ class MobileApp extends FrontendApp
 	 * 109 未绑定手机
 	 * 110 相同物品12小时内只能购买一次
 	 * 111 库存不足
+	 * 112 店铺id错误
 	 * @param unknown $msg
 	 * @param number $code
 	 */
@@ -102,6 +103,7 @@ class MobileVisitor extends BaseVisitor
 
 			$tokeninfo = $usertoken->get(array('conditions'=>" appid='$this->appid' and token='$this->token' "));
 		}
+		
 		if ($tokeninfo)
 		{
 			$uid = $tokeninfo['uid'];
