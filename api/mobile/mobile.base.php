@@ -12,7 +12,8 @@ class MobileApp extends FrontendApp
 		}
 		
 		$this->reqdata = $_REQUEST['datas'];
-		if(get_magic_quotes_gpc()){
+		$test = json_decode($this->reqdata);
+		if(!$test && get_magic_quotes_gpc()){
 			$this->reqdata = stripslashes_deep($this->reqdata);
 		}
 		
@@ -60,6 +61,8 @@ class MobileApp extends FrontendApp
 	 * 110 相同物品12小时内只能购买一次
 	 * 111 库存不足
 	 * 112 店铺id错误
+	 * 113 搜索至少2个字符
+	 * 114 修改密码失败
 	 * @param unknown $msg
 	 * @param number $code
 	 */

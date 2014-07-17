@@ -57,9 +57,9 @@ class StoreApp extends MobileApp{
 	
 	function favorlist(){
 		if(!$this->visitor->has_login){
-			$this->error(108,'请登录后再收藏');
+			$this->error(108,'请先登录');
 		}
-		$type = empty($_GET['type'])    ? 'goods' : trim($_GET['type']);
+		$type = empty($this->reqdata->type)    ? 'goods' : trim($this->reqdata->type);
 		if ($type == 'goods')
 		{
 			$this->_list_collect_goods();
@@ -180,12 +180,6 @@ class StoreApp extends MobileApp{
 	 */
 	function _list_collect_goods()
 	{
-		$conditions = $this->_get_query_conditions(array(array(
-				'field' => 'goods_name',         //可搜索字段title
-				'equal' => 'LIKE',          //等价关系,可以是LIKE, =, <, >, <>
-		),
-		));
-		
 		$page = $this->reqdata->page?intval($this->reqdata->page):0;
 		$limit = $this->reqdata->pagesize?intval($this->reqdata->pagesize):15;
 		$start = $page*$limit;
@@ -195,53 +189,25 @@ class StoreApp extends MobileApp{
 		$collect_goods = $model_goods->find(array(
 				'join'  => 'be_collect,belongs_to_store,has_default_spec',
 				'fields'=> 'this.*,store.store_name,store.store_id,collect.add_time,goodsspec.price,goodsspec.spec_id',
-				'conditions' => 'collect.user_id = ' . $this->visitor->get('user_id') . $conditions,
+				'conditions' => 'collect.user_id = ' . $this->visitor->get('user_id'),
 				'count' => true,
 				'order' => 'collect.add_time DESC',
-				'limit' => $start,$limit,
+				'limit' => "$start,$limit",
 		));
+		
+		$list = array();
 		foreach ($collect_goods as $key => $goods)
 		{
 			empty($goods['default_image']) && $collect_goods[$key]['default_image'] = Conf::get('default_goods_image');
+			$item['goods_id'] = $goods['goods_id'];
+			$item['name'] = $goods['goods_name'];
+			$item['price'] = $goods['price'];
+			$item['market_price'] = $goods['market_price'];
+			$item['img'] = SITE_URL . '/' .$goods['default_image'];
+			$list[] = $item;
 		}
-		$page['item_count'] = $model_goods->getCount();   //获取统计的数据
-		$this->_format_page($page);
-		$this->assign('filtered', $conditions? 1 : 0); //是否有查询条件
-		$this->assign('collect_goods', $collect_goods);
-		/* 当前位置 */
-		$this->_curlocal(LANG::get('member_center'),    'index.php?app=member',
-				LANG::get('my_favorite'), 'index.php?app=my_favorite',
-				LANG::get('collect_goods'));
-	
-		$this->import_resource(array(
-				'script' => array(
-						array(
-								'path' => 'dialog/dialog.js',
-								'attr' => 'id="dialog_js"',
-						),
-						array(
-								'path' => 'jquery.ui/jquery.ui.js',
-								'attr' => '',
-						),
-						array(
-								'path' => 'jquery.ui/i18n/' . i18n_code() . '.js',
-								'attr' => '',
-						),
-						array(
-								'path' => 'jquery.plugins/jquery.validate.js',
-								'attr' => '',
-						),
-				),
-				'style' =>  'jquery.ui/themes/ui-lightness/jquery.ui.css',
-		));
-	
-		//当前用户中心菜单项
-		$this->_curitem('my_favorite');
-	
-		$this->_curmenu('collect_goods');
-		$this->assign('page_info', $page);          //将分页信息传递给视图，用于形成分页条
-		$this->_config_seo('title', Lang::get('member_center') . ' - ' . Lang::get('collect_goods'));
-		$this->display('my_favorite.goods.index.html');
+		$count = $model_goods->getCount();   //获取统计的数据
+		$this->success(array('type'=>'goods','count'=>$count,'list'=>$list));
 	}
 	
 	/**
@@ -252,31 +218,34 @@ class StoreApp extends MobileApp{
 	 */
 	function _list_collect_store()
 	{
-		$conditions = $this->_get_query_conditions(array(array(
-				'field' => 'store_name',         //可搜索字段title
-				'equal' => 'LIKE',          //等价关系,可以是LIKE, =, <, >, <>
-		),
-		));
-		$model_store =& m('store');
 		
+		$model_store =& m('store');
+		$page = $this->reqdata->page?intval($this->reqdata->page):0;
+		$limit = $this->reqdata->pagesize?intval($this->reqdata->pagesize):15;
+		$start = $page*$limit;
 		$collect_store = $model_store->find(array(
 				'join'  => 'be_collect,belongs_to_user',
 				'fields'=> 'this.*,member.user_name,collect.add_time',
-				'conditions' => 'collect.user_id = ' . $this->visitor->get('user_id') . $conditions,
+				'conditions' => 'collect.user_id = ' . $this->visitor->get('user_id') ,
 				'count' => true,
 				'order' => 'collect.add_time DESC',
-				'limit' => $page['limit'],
+				'limit' => "$start,$limit",
 		));
-		$page['item_count'] = $model_store->getCount();   //获取统计的数据
+		$count = $model_store->getCount();   //获取统计的数据
 		$step = intval(Conf::get('upgrade_required'));
 		$step < 1 && $step = 5;
+		$list = array();
 		foreach ($collect_store as $key => $store)
 		{
 			empty($store['store_logo']) && $collect_store[$key]['store_logo'] = Conf::get('default_store_logo');
-			$collect_store[$key]['credit_image'] = $this->_view->res_base . '/images/' . $model_store->compute_credit($store['credit_value'], $step);
+			$item['store_id'] = $store['store_id'];
+			$item['logo'] = SITE_URL . '/' .$store['store_logo'];
+			$item['name'] = $store['store_name'];
+			$item['owner']= $store['owner_name'];
+			$list[] = $item;
 		}
 		
-	
+		$this->success(array('type'=>'store','count'=>$count,'list'=>$list));
 		
 	}
 }

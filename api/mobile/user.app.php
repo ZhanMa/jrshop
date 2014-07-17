@@ -20,6 +20,37 @@ class UserApp extends MobileApp{
 		}
 	}
 	
+	function changepwd(){
+		if(!$this->visitor->has_login){
+			$this->error(108,'请登录');
+		}
+		$orig_password = trim($this->reqdata->oldpwd);
+		if(empty($orig_password)){
+			$this->error(104,'请输入原密码');
+		}
+		$new_password = trim($this->reqdata->newpwd);
+		if(empty($new_password)){
+			$this->error(104,'请输入新密码');
+		}
+		$uid = $this->visitor->get('user_id');
+		/* 修改密码 */
+		$ms =& ms();    //连接用户系统
+		$result = $ms->user->edit($this->visitor->get('user_id'), $orig_password, array(
+				'password'  => $new_password
+		));
+		if (!$result)
+		{
+			$error = $ms->user->get_error();
+			/* 修改不成功，显示原因 */
+			$this->error(114,$error[0]['msg']);
+		
+		}else{
+			$db = m('usertoken');
+			$db->db->query("delete from ecm_user_token where uid=$uid");
+			$this->success();
+		}
+	}
+	
 	function logout(){
 		if($this->visitor->has_login){
 			$this->_do_logout();

@@ -166,3 +166,26 @@ app=store&act=addfavorite
 id 店铺id或者商品id
 type（字符串） 关注的类型 goods商品 store 店铺 
 
+16\获取关注列表（必须带token）
+app=store&act=favorlist
+参数
+type （字符串） 关注的类型 goods商品 store 店铺
+page 第几页 从0开始
+pagesize 每页条数
+
+
+17\搜索商品
+app=goods&act=search
+参数
+word 搜索的关键字
+page 第几页 从0开始
+pagesize 每页条数
+
+18\修改密码（必须带token）
+参数
+oldpwd 旧密码
+newpwd 新密码
+说明
+新密码的输入一致性前端验证
+修改密码后该用户的token失效需要重新登录
+

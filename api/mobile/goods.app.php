@@ -32,6 +32,36 @@ class GoodsApp extends MobileApp{
 		$this->success(array('count'=>$count,'list'=>$goods_list));
 	}
 	
+	function search(){
+		$word = $this->reqdata->word;
+		$page = $this->reqdata->page?intval($this->reqdata->page):0;
+		$limit = $this->reqdata->pagesize?intval($this->reqdata->pagesize):15;
+		$start = $page*$limit;
+		
+		if(strlen($word)<1){
+			$this->error(113,'搜索内容为空');
+		}
+		
+		$conditions = " g.if_show = 1 AND g.closed = 0 AND s.state = 1"; // 上架且没有被禁售，店铺是开启状态,
+		$conditions .= " AND  (g.goods_name like '%" . $word . "%' or g.tags like '%" . $word . "%')";
+		$goods_mod  =& m('goods');
+		$goods_list = $goods_mod->get_list(array(
+				'conditions' => $conditions,
+				'order'      => 'g.last_update desc',
+				'limit'      => $start.','.$limit,
+				'count' => true
+		));
+		
+		foreach ($goods_list as $key=>$goods){
+			$goods_image_mod=&m('goodsimage');
+			$goods_image=$goods_image_mod->get(array(
+					'conditions'=>'goods_id='.$goods['goods_id']
+			));
+			$goods_list[$key]['default_image']=SITE_URL.'/'.$goods_image['thumbnail'];
+		}
+		$count = $goods_mod->getCount();
+		$this->success(array('count'=>$count,'list'=>$goods_list));
+	}
 	
 	function buy(){
 		if(!$this->visitor->has_login){

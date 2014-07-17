@@ -67,12 +67,26 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'addfavorite';
 	$reqdata['id'] = 104;
 	$reqdata['type'] = 'goods';
-	$reqdata['token'] = 'ba12414321b4fba01200a0d85e3762d8';
+	$reqdata['token'] = 'd6580b6fd88cfb87fdec4f3d5be2afcd';
+}elseif($tname=='favorlist'){
+	$_REQUEST['app'] = 'store';
+	$_REQUEST['act'] = 'favorlist';
+	$reqdata['type'] = 'store';
+	$reqdata['token'] = 'ef6aee37c3b4ea69c0e188a66ff2ba0d';
+}elseif($tname=='search'){
+	$_REQUEST['app'] = 'goods';
+	$_REQUEST['act'] = 'search';
+	$reqdata['word'] = '粥';
+}elseif($tname=='changepwd'){
+	$_REQUEST['app'] = 'user';
+	$_REQUEST['act'] = 'changepwd';
+	$reqdata['oldpwd'] = 111111;
+	$reqdata['newpwd'] = '111111';
+	$reqdata['token'] = 'ef6aee37c3b4ea69c0e188a66ff2ba0d';
 }
 
 
 
 $reqdata = json_encode($reqdata);
 $_REQUEST['datas'] = $reqdata;
-
 require TEST_ROOT.'/m.php';
