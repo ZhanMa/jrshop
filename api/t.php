@@ -83,6 +83,17 @@ if($tname=='login'){
 	$reqdata['oldpwd'] = 111111;
 	$reqdata['newpwd'] = '111111';
 	$reqdata['token'] = 'ef6aee37c3b4ea69c0e188a66ff2ba0d';
+}elseif($tname=='orderlist'){
+	$_REQUEST['app'] = 'order';
+	$_REQUEST['act'] = 'orders';
+	$reqdata['add_time_from'] = '2014-07-01 01:30:20';
+	//$reqdata['add_time_to'] = '2014-07-02 01:30:20';
+	$reqdata['token'] = '8a0ed89a9f30220bbd831ac83deba219';
+}elseif($tname=='orderview'){
+	$_REQUEST['app'] = 'order';
+	$_REQUEST['act'] = 'view';
+	$reqdata['order_id'] = 144;
+	$reqdata['token'] = '8a0ed89a9f30220bbd831ac83deba219';
 }
 
 

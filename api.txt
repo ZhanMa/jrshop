@@ -182,10 +182,35 @@ page 第几页 从0开始
 pagesize 每页条数
 
 18\修改密码（必须带token）
+app=user&act=changepwd
 参数
 oldpwd 旧密码
 newpwd 新密码
 说明
 新密码的输入一致性前端验证
 修改密码后该用户的token失效需要重新登录
+
+19\获取订单列表（必须带token）
+app=order&act=orders
+参数
+status 订单状态（传入后面的英文字符串，不填则默认为全部）  all:全部 ，accepted:已购买 ，finished:已结束
+order_sn 订单号 注意这个不是订单id 是长的那串码
+add_time_from add_time_to 时间区间 
+page 第几页 从0开始
+pagesize 每页条数
+返回
+订单列表 list
+字段说明
+order_sn 订单号
+order_amount 订单的总价格（因为现在一个订单就一个物品所以等于商品价格）
+
+20\获取订单详情（必须带token）
+app=order&act=view
+参数
+order_id 订单id 注意这里传入的事订单id不是那个订单号
+返回
+订单详情 info
+字段说明
+im_ww 店主的旺旺号
+其他基本和英文对应
 

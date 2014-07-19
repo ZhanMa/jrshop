@@ -63,6 +63,7 @@ class MobileApp extends FrontendApp
 	 * 112 店铺id错误
 	 * 113 搜索至少2个字符
 	 * 114 修改密码失败
+	 * 115 订单id错误
 	 * @param unknown $msg
 	 * @param number $code
 	 */
