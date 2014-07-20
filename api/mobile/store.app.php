@@ -50,8 +50,9 @@ class StoreApp extends MobileApp{
 			));
 			$goods_list[$key]['default_image']=SITE_URL.'/'.$goods_image['thumbnail'];
 		}
+		$list = array_values($goods_list);
 		$count = $goods_mod->getCount();
-		$this->success(array('count'=>$count,'list'=>$goods_list));
+		$this->success(array('count'=>$count,'list'=>$list));
 	}
 	
 	
