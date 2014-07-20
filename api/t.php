@@ -94,6 +94,10 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'view';
 	$reqdata['order_id'] = 144;
 	$reqdata['token'] = '8a0ed89a9f30220bbd831ac83deba219';
+}elseif($tname =='glist'){
+	$_REQUEST['app'] = 'groupbuy';
+	$_REQUEST['act'] = 'glist';
+	$reqdata['token'] = 'd4a9526c1a799170e4f73f0e16d53816';
 }
 
 
