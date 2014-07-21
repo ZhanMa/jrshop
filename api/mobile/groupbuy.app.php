@@ -14,7 +14,7 @@ class GroupbuyApp extends MobileApp{
 			$info = unserialize($gbuy['spec_price']);
 			$a = array_pop($info);
 			extract($a);
-			$this->success(array('nothing'=>0,'servertime'=>time(),'endtime'=>$gbuy['end_time'],'goods_id'=>$gid,'goods_price'=>$goodsinfo['price'],'group_id'=>$gbuy['group_id'],'group_price'=>$price,'name'=>$name,'image'=>SITE_URL.'/'.$goodsinfo['default_image']));
+			$this->success(array('nothing'=>0,'group_id'=>$gbuy['group_id'],'servertime'=>time(),'endtime'=>$gbuy['end_time'],'goods_id'=>$gid,'goods_price'=>$goodsinfo['price'],'group_id'=>$gbuy['group_id'],'group_price'=>$price,'name'=>$name,'image'=>SITE_URL.'/'.$goodsinfo['default_image']));
 		}else{
 			$this->success(array('nothing'=>1));
 		}
@@ -23,6 +23,96 @@ class GroupbuyApp extends MobileApp{
 	function servertime(){
 		
 		$this->success(array('servertime'=>time()));
+	}
+	
+	function join(){
+		$id = $this->reqdata->group_id;
+		$id = intval($id);
+		if($id){
+			$this->error(116,'未获取到团购id');
+		}
+		$group = $this->_groupbuy_mod->get(array(
+				'conditions' => 'group_id=' . $id . ' AND gb.state<>' . GROUP_PENDING,
+				'join' => 'belong_store',
+				'fields' => 'gb.*,s.owner_name'
+		));
+		
+		if (empty($group))
+		{
+			$this->error(116,'团购id错误');
+			return;
+		}
+		
+		// 团购商品信息
+		$goods = $this->_query_goods_info($group['goods_id']);
+		if ($goods['closed'] == 1)
+		{
+			$this->error(111,'该商品已下架');
+			return;
+		}
+		$quantity = 0;
+		$spec_quantity = array();
+		foreach ($_POST['quantity'] as $key => $val)
+		{
+			if ($_POST['quantity'][$key] > 0)
+			{
+				$spec_quantity[$_POST['spec_id'][$key]] = array(
+						'spec'  => $_POST['spec'][$key],
+						'qty'   => $_POST['quantity'][$key],
+				);
+				$quantity += $_POST['quantity'][$key];
+			}
+			elseif ($_POST['quantity'][$key] != '')
+			{
+				$this->show_warning('invalid_quantity');
+				return;
+			}
+		}
+		if ($quantity == 0)
+		{
+			$this->show_warning('fill_quantity');
+			return;
+		}
+		if ($group['max_per_user'] > 0 && $quantity > $group['max_per_user'])
+		{
+			$this->show_warning(sprintf(Lang::get('error_max_per_user'), $group['max_per_user']));
+			return;
+		}
+		$link_man = trim($_POST['link_man']);
+		$tel = trim($_POST['tel']);
+		if (!$link_man || !$tel)
+		{
+			$this->show_warning('fill_join_user_info');
+			return;
+		}
+		$data[$group['group_id']] = array(
+				'user_name'     => $this->_visitor['user_name'],
+				'quantity'      => $quantity,
+				'spec_quantity' => serialize($spec_quantity),
+				'linkman'       => $link_man,
+				'tel'           => $tel,
+				'order_id'      => 0,
+				'add_time'      => gmtime(),
+		);
+		$member_mod = &m('member');
+		$member_mod->createRelation('join_groupbuy', $this->_visitor['user_id'], $data);
+		
+		
+		$groupbuy_url = SITE_URL . '/' . url('app=groupbuy&id=' . $group['group_id']);
+		$groupbuy_name  = $group['group_name'];
+		$this->send_feed('groupbuy_joined', array(
+				'user_id'   => $this->visitor->get('user_id'),
+				'user_name'   => $this->visitor->get('user_name'),
+				'groupbuy_url'   => $groupbuy_url,
+				'groupbuy_name'   => $groupbuy_name,
+				'images'   => array(
+						array(
+								'url'   => SITE_URL . '/' . $goods['default_image'],
+								'link'   => $groupbuy_url,
+						)
+				),
+		));
+		
 	}
 	
 	function glist(){

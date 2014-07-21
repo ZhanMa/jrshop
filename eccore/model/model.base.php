@@ -296,7 +296,7 @@ class BaseModel extends Object
         }
         $insert_info = $this->_getInsertInfo($data);
         $mode = $compatible ? 'REPLACE' : 'INSERT';
-
+		//echo "{$mode} INTO {$this->table}{$insert_info['fields']} VALUES{$insert_info['values']}";
         $this->db->query("{$mode} INTO {$this->table}{$insert_info['fields']} VALUES{$insert_info['values']}");
         $insert_id = $this->db->insert_id();
         if ($insert_id)
@@ -521,6 +521,7 @@ class BaseModel extends Object
         }
         $edit_fields = $this->_getSetFields($edit_data);
         $conditions  = $this->_getConditions($conditions, false);
+        //echo "UPDATE {$this->table} SET {$edit_fields}{$conditions}";
         $this->db->query("UPDATE {$this->table} SET {$edit_fields}{$conditions}");
 
         return $this->db->affected_rows();

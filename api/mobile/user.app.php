@@ -57,7 +57,103 @@ class UserApp extends MobileApp{
 		}
 		$this->success();
 	}
-
+	
+	function register(){
+		$mobile = $this->reqdata->mobile;
+		$user_name = $this->reqdata->username;
+		$password = $this->reqdata->password;
+		$email = $this->reqdata->email;
+		$code = $this->reqdata->mobilecode;
+		$passlen = strlen($password);
+		$user_name_len = strlen($user_name);
+		if(!preg_match("/^[1][3-8]\d{9}$/",$mobile)){
+			$this->error(117,'手机号错误');
+		}
+		if ($user_name_len < 3 || $user_name_len > 25)
+		{
+			$this->error(120,'用户名长度3-25字符');
+			return;
+		}
+		if ($passlen < 6 || $passlen > 20)
+		{
+			$this->error(120,'密码长度6-20字符');
+			return;
+		}
+		if (!is_email($email))
+		{
+			$this->error(120,'邮箱错误');
+		
+			return;
+		}
+		
+		$ms =& ms(); //连接用户中心
+		$r = $ms->user->check_phone(1,$mobile);
+		if(!$r){
+			$this->error(118,'手机号已被注册');
+		}
+		$db = m('mobilecode');
+		$oldcode = $db->get(array('conditions'=>"mobile='$mobile'"));
+		if(!$oldcode){
+			$this->error(121,'手机验证码错误');
+		}
+		if($oldcode['code']!=$code){
+			$this->error(121,'手机验证码错误');
+		}
+		$user_id = $ms->user->register($user_name, $password, $email);
+		if (!$user_id)
+		{
+			$this->error(120,$ms->user->get_error());
+		
+			return;
+		}
+		$result = $ms->user->edit($user_id, $password, array(
+				'safephone' => $mobile
+		));
+		$this->success('注册成功');
+	}
+	
+	function sendcode(){
+		$mobile = $this->reqdata->mobile;
+		if(!preg_match("/^[1][3-8]\d{9}$/",$mobile)){
+			$this->error(117,'手机号错误');
+		}
+		$getaddress = $mobile;
+		$ms =& ms();
+		$r = $ms->user->check_phone(1,$mobile);
+		if(!$r){
+			$this->error(118,'手机号已被注册');
+		}
+		$code = $this->make_code();
+		import('HTTP_SDK');
+		$cpid = 'jinrongjiewuye';
+    	$cppsw = '123456';
+    	$engine = HTTP_SDK::getInstance($cpid,$cppsw);
+    	$content = '【96018】欢迎您注册金融街生活在线，请输入以下验证码完成注册，您的验证码为'.$code.'，请您在十分钟内进行提交，您正在用手机绑定您的账户，为了保护您的账号安全，请勿泄露。【96018金融街生活在线】';
+		$rusult = $engine->pushMt($getaddress,'1', $content,  0);
+		
+		$db = m('mobilecode');
+		$oldcode = $db->get(array('conditions'=>"mobile='$mobile'"));
+		
+		if($oldcode){
+			$db->edit($oldcode['id'],array('`code`'=>$code));
+		}else{
+			$db->add(array('mobile'=>$mobile,'`code`'=>$code));
+		}
+		$this->success('发送成功');
+		
+	}
+	
+	function make_code()
+	{
+		$chars = '23456789';
+		$code = '';
+		for ( $i = 0; $i < 6; $i++)
+		{
+		$code .= $chars[ mt_rand(0, strlen($chars) - 1) ];
+		}
+		return $code;
+	}
+	
 	function getinfo(){
 		$token = '';
 		if($this->visitor->has_login){

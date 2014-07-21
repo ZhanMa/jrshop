@@ -64,6 +64,12 @@ class MobileApp extends FrontendApp
 	 * 113 搜索至少2个字符
 	 * 114 修改密码失败
 	 * 115 订单id错误
+	 * 116 未获取到团购id
+	 * 117 手机号码错误
+	 * 118 手机号已被注册
+	 * 119 短信发送失败
+	 * 120 注册信息错误
+	 * 121 短信验证码错误
 	 * @param unknown $msg
 	 * @param number $code
 	 */
@@ -82,6 +88,14 @@ class MobileApp extends FrontendApp
 	function _do_logout()
 	{
 		$this->visitor->logout();
+	}
+	
+	function log($data){
+		if(is_array($data)){
+			$data = json_encode($data);
+		}
+		$data.='  ::'.date('H:i:s').'\n';
+		file_put_contents(ROOT_PATH.'/log/'.date('Y-m-d').'.txt', $data);
 	}
 }
 

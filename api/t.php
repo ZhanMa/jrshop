@@ -8,7 +8,7 @@ $reqdata['appid'] = 1;
 if($tname=='login'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'login';
-	$reqdata['username'] = 'pang20c';
+	$reqdata['username'] = 'ppwww';
 	$reqdata['password'] = '111111';
 }elseif($tname=='getinfo'){
 	$_REQUEST['app'] = 'user';
@@ -98,6 +98,18 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'groupbuy';
 	$_REQUEST['act'] = 'glist';
 	$reqdata['token'] = 'd4a9526c1a799170e4f73f0e16d53816';
+}elseif($tname=='sendcode'){
+	$_REQUEST['app'] = 'user';
+	$_REQUEST['act'] = 'sendcode';
+	$reqdata['mobile'] = '15010753496';
+}elseif($tname=='register'){
+	$_REQUEST['app'] = 'user';
+	$_REQUEST['act'] = 'register';
+	$reqdata['mobile'] = '15010753496';
+	$reqdata['mobilecode'] = '766895';
+	$reqdata['username'] = 'ppwww';
+	$reqdata['password'] = '111111';
+	$reqdata['email'] = '333@qq.com';
 }
 
 

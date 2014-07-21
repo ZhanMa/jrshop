@@ -195,7 +195,7 @@ app=order&act=orders
 参数
 status 订单状态（传入后面的英文字符串，不填则默认为全部）  all:全部 ，accepted:已购买 ，finished:已结束
 order_sn 订单号 注意这个不是订单id 是长的那串码
-add_time_from add_time_to 时间区间 
+add_time_from add_time_to 时间区间  格式 2014-10-11 16:11:01
 page 第几页 从0开始
 pagesize 每页条数
 返回
@@ -225,4 +225,24 @@ join_quantity 当前的参与人数
 group_num 成团数量
 grounp_price 团购价
 org_price 原价
+
+22\发送注册短信验证码（这个需要个发送完倒计时再发送，间隔暂定30秒）
+app=user&act=sendcode
+参数
+mobile 手机号
+返回
+状态码
+
+23\注册（要结合前面的手机验证码）
+app=user&act=register
+参数
+mobile 手机号
+username 用户名
+password 密码
+mobilecode 手机验证码
+email 邮箱
+返回
+状态码
+
+
 
