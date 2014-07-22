@@ -70,6 +70,7 @@ class MobileApp extends FrontendApp
 	 * 119 短信发送失败
 	 * 120 注册信息错误
 	 * 121 短信验证码错误
+	 * 122 参数错误
 	 * @param unknown $msg
 	 * @param number $code
 	 */

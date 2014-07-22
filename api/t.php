@@ -8,8 +8,8 @@ $reqdata['appid'] = 1;
 if($tname=='login'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'login';
-	$reqdata['username'] = 'ppwww';
-	$reqdata['password'] = '111111';
+	$reqdata['username'] = 'pang20c';
+	$reqdata['password'] = '150107534962';
 }elseif($tname=='getinfo'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'getinfo';
@@ -88,7 +88,10 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'orders';
 	$reqdata['add_time_from'] = '2014-07-01 01:30:20';
 	//$reqdata['add_time_to'] = '2014-07-02 01:30:20';
-	$reqdata['token'] = '8a0ed89a9f30220bbd831ac83deba219';
+	$reqdata['token'] = '3c71a8b435d0f1265ceee8a06bcf4d7a';
+	$a = ' {"appid":1,"pagesize":"15","page":"0","status":"all","order_sn":"null","add_time_from":"null","add_time_to":"null","token":"2eafc37e37a09c31185f3c0356248043"}';
+	$a = json_decode($a);
+	var_dump($a);
 }elseif($tname=='orderview'){
 	$_REQUEST['app'] = 'order';
 	$_REQUEST['act'] = 'view';
@@ -102,6 +105,7 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'sendcode';
 	$reqdata['mobile'] = '15010753496';
+	$reqdata['type'] = 'resetpwd';
 }elseif($tname=='register'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'register';
@@ -110,6 +114,11 @@ if($tname=='login'){
 	$reqdata['username'] = 'ppwww';
 	$reqdata['password'] = '111111';
 	$reqdata['email'] = '333@qq.com';
+}elseif($tname=='resetpwd'){
+	$_REQUEST['app'] = 'user';
+	$_REQUEST['act'] = 'resetpwd';
+	$reqdata['mobile'] = '15010753496';
+	$reqdata['mobilecode'] = '285578';
 }
 
 

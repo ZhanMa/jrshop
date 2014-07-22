@@ -20,6 +20,65 @@ class UserApp extends MobileApp{
 		}
 	}
 	
+	function resetpwd(){
+		$mobile = $this->reqdata->mobile;
+		$mobilecode = $this->reqdata->mobilecode;
+		if(!preg_match("/^[1][3-8]\d{9}$/",$mobile)){
+			$this->error(117,'手机号错误');
+		}
+		$memberdb = m('member');
+		
+		$user = $memberdb->get(array('conditions'=>" safephone='$mobile' "));
+		if(!$user){
+			$this->error(117,'不存在该手机号的用户');
+		}
+		
+		$user_id = $user['user_id'];
+		$db = m('mobilecode');
+		$oldcode = $db->get(array('conditions'=>"mobile='$mobile'"));
+		if(!$oldcode){
+			$this->error(121,'手机验证码错误');
+		}
+		if($oldcode['code']!=$mobilecode){
+			$this->error(121,'手机验证码错误');
+		}
+		$ms =& ms(); //连接用户中心
+		$result = $ms->user->edit($user_id, '', array(
+				'password' => $mobile
+		),1);
+		$this->success(array('info'=>"尊敬的用户您的密码已成功重置为您的手机号,用户名".$user['user_name']));
+		
+	}
+	
+	function bindphone(){
+		if(!$this->visitor->has_login){
+			$this->error(108,'请登录');
+		}
+		$user_id = $this->visitor->get('user_id');
+		$mobile = $this->reqdata->mobile;
+		$mobilecode = $this->reqdata->mobilecode;
+		if(!preg_match("/^[1][3-8]\d{9}$/",$mobile)){
+			$this->error(117,'手机号错误');
+		}
+		$ms =& ms(); //连接用户中心
+		$r = $ms->user->check_phone($user_id,$mobile);
+		if(!$r){
+			$this->error(118,'手机号已被注册');
+		}
+		$db = m('mobilecode');
+		$oldcode = $db->get(array('conditions'=>"mobile='$mobile'"));
+		if(!$oldcode){
+			$this->error(121,'手机验证码错误');
+		}
+		if($oldcode['code']!=$code){
+			$this->error(121,'手机验证码错误');
+		}
+		$result = $ms->user->edit($user_id, $password, array(
+				'safephone' => $mobile
+		));
+		$this->success(array('info'=>'绑定成功'));
+	}
+	
 	function changepwd(){
 		if(!$this->visitor->has_login){
 			$this->error(108,'请登录');
@@ -60,6 +119,7 @@ class UserApp extends MobileApp{
 	
 	function register(){
 		$mobile = $this->reqdata->mobile;
+		$mobile = trim($mobile);
 		$user_name = $this->reqdata->username;
 		$password = $this->reqdata->password;
 		$email = $this->reqdata->email;
@@ -114,21 +174,49 @@ class UserApp extends MobileApp{
 	
 	function sendcode(){
 		$mobile = $this->reqdata->mobile;
+		$sendtype = $this->reqdata->type;
+		$sendtype = $sendtype?$sendtype:'register';
+		$mobile = trim($mobile);
 		if(!preg_match("/^[1][3-8]\d{9}$/",$mobile)){
-			$this->error(117,'手机号错误');
+			$this->error(117,'手机号错误('.$mobile.')');
 		}
 		$getaddress = $mobile;
 		$ms =& ms();
-		$r = $ms->user->check_phone(1,$mobile);
-		if(!$r){
-			$this->error(118,'手机号已被注册');
+		if($sendtype=='register'){
+			$r = $ms->user->check_phone(1,$mobile);
+			if(!$r){
+				$this->error(118,'手机号已被注册');
+			}
+		}elseif($sendtype=='resetpwd'){
+			$memberdb = m('member');
+			$user = $memberdb->get(array('condition'=>" safephone='$mobile' "));
+			if(!$user){
+				$this->error(117,'不存在该手机号的用户');
+			}
+		}elseif($sendtype=='bindphone'){
+			if(!$this->visitor->has_login){
+				$this->error(108,'请登录后再绑定手机');
+			}
+			$r = $ms->user->check_phone($this->visitor->get('user_id'),$mobile);
+			if(!$r){
+				$this->error(118,'手机号已被注册');
+			}
+		}else{
+			$this->error(122,'type值错误');
 		}
+		
+		
 		$code = $this->make_code();
 		import('HTTP_SDK');
 		$cpid = 'jinrongjiewuye';
     	$cppsw = '123456';
     	$engine = HTTP_SDK::getInstance($cpid,$cppsw);
-    	$content = '【96018】欢迎您注册金融街生活在线，请输入以下验证码完成注册，您的验证码为'.$code.'，请您在十分钟内进行提交，您正在用手机绑定您的账户，为了保护您的账号安全，请勿泄露。【96018金融街生活在线】';
+    	if($sendtype=='register'){
+    		$content = '【96018】欢迎您注册金融街生活在线，请输入以下验证码完成注册，您的验证码为'.$code.'，请您在十分钟内进行提交，您正在用手机绑定您的账户，为了保护您的账号安全，请勿泄露。【96018金融街生活在线】';
+    	}else{
+    		$content = '【96018】尊敬的用户您的短信验证码为'.$code.'，为了保护您的账号安全，请勿泄露。【96018金融街生活在线】';
+    	}
+    	
 		$rusult = $engine->pushMt($getaddress,'1', $content,  0);
 		
 		$db = m('mobilecode');

@@ -29,7 +29,7 @@ class StoreApp extends MobileApp{
 		$start = $page*$limit;
 		
 		if(!$store_id){
-			$this->log("id::".$this->reqdata->id);
+			
 			$this->error(112,'店铺id错误');
 		}
 		$gcategory_mod  =& bm('gcategory');
@@ -240,7 +240,7 @@ class StoreApp extends MobileApp{
 		foreach ($collect_store as $key => $store)
 		{
 			empty($store['store_logo']) && $collect_store[$key]['store_logo'] = Conf::get('default_store_logo');
-			$item['store_id'] = $store['store_id'];
+			$item['id'] = $store['store_id'];
 			$item['logo'] = SITE_URL . '/' .$store['store_logo'];
 			$item['name'] = $store['store_name'];
 			$item['owner']= $store['owner_name'];
