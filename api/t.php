@@ -72,7 +72,7 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'store';
 	$_REQUEST['act'] = 'favorlist';
 	$reqdata['type'] = 'store';
-	$reqdata['token'] = 'ef6aee37c3b4ea69c0e188a66ff2ba0d';
+	$reqdata['token'] = '327d5b17ff7866b60bda52588363dd9b';
 }elseif($tname=='search'){
 	$_REQUEST['app'] = 'goods';
 	$_REQUEST['act'] = 'search';
@@ -126,6 +126,12 @@ if($tname=='login'){
 	$reqdata['token'] = '2560fb83702bf8c6119cd6a2dd435ac0';
 	$reqdata['mobile'] = '15010753496';
 	$reqdata['mobilecode'] = '535556'; 
+}elseif($tname=='dropfavorite'){
+	$_REQUEST['app'] = 'store';
+	$_REQUEST['act'] = 'dropfavorite';
+	$reqdata['id'] = 47;
+	$reqdata['type'] = 'store';
+	$reqdata['token'] = '327d5b17ff7866b60bda52588363dd9b';
 }
 
 

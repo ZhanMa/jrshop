@@ -98,6 +98,60 @@ class StoreApp extends MobileApp{
 		$this->success();
 	}
 	
+	function dropfavorite()
+	{
+		if(!$this->visitor->has_login){
+			$this->error(108,'请登录后再收藏');
+		}
+		$type = $this->reqdata->type;
+		$item_id = $this->reqdata->id;
+		if (!$item_id)
+		{
+			$this->error('106','未获取到id');
+	
+			return;
+		}
+		if ($type == 'goods')
+		{
+			$this->_drop_collect_goods($item_id);
+		}
+		elseif ($type == 'store')
+		{
+			$this->_drop_collect_store($item_id);
+		}
+	}
+	
+	
+	function _drop_collect_goods($item_id)
+	{
+		$ids = explode(',', $item_id);
+	
+		/* 解除“我”与商品ID为$ids的收藏关系 */
+		$model_user =& m('member');
+		$r = $model_user->unlinkRelation('collect_goods', $this->visitor->get('user_id'), $ids);
+		
+		$this->success();
+	}
+	
+	/**
+	 *    删除收藏的店铺
+	 *
+	 *    @author    Garbin
+	 *    @param     int $item_id
+	 *    @return    void
+	 */
+	function _drop_collect_store($item_id)
+	{
+		$ids = explode(',', $item_id);
+	
+		/* 解除“我”与店铺ID为$ids的收藏关系 */
+		$model_user =& m('member');
+		$r = $model_user->unlinkRelation('collect_store', $this->visitor->get('user_id'), $ids);
+		
+		$this->success();
+	}
+	
+	
 	function _add_collect_goods($goods_id, $keyword)
 	{
 		/* 验证要收藏的商品是否存在 */

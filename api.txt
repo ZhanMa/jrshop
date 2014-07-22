@@ -272,5 +272,12 @@ mobilecode 手机验证码
 返回
 状态码
 
+26\取消关注的商品或店铺（必须带token）
+app=store&act=dropfavorite
+参数
+id 店铺id或者商品id
+type（字符串） 关注的类型 goods商品 store 店铺 
+
+
 
 
