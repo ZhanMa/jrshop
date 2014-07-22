@@ -9,7 +9,7 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'login';
 	$reqdata['username'] = 'pang20c';
-	$reqdata['password'] = '150107534962';
+	$reqdata['password'] = '111111';
 }elseif($tname=='getinfo'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'getinfo';
@@ -80,9 +80,9 @@ if($tname=='login'){
 }elseif($tname=='changepwd'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'changepwd';
-	$reqdata['oldpwd'] = 111111;
+	$reqdata['oldpwd'] = 15010753496;
 	$reqdata['newpwd'] = '111111';
-	$reqdata['token'] = 'ef6aee37c3b4ea69c0e188a66ff2ba0d';
+	$reqdata['token'] = 'f2d14f5d4823295577320a10024b5c54';
 }elseif($tname=='orderlist'){
 	$_REQUEST['app'] = 'order';
 	$_REQUEST['act'] = 'orders';
@@ -106,6 +106,7 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'sendcode';
 	$reqdata['mobile'] = '15010753496';
 	$reqdata['type'] = 'resetpwd';
+	$reqdata['token'] = '2560fb83702bf8c6119cd6a2dd435ac0';
 }elseif($tname=='register'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'register';
@@ -118,7 +119,13 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'user';
 	$_REQUEST['act'] = 'resetpwd';
 	$reqdata['mobile'] = '15010753496';
-	$reqdata['mobilecode'] = '285578';
+	$reqdata['mobilecode'] = '593363';
+}elseif($tname=='bindphone'){
+	$_REQUEST['app'] = 'user';
+	$_REQUEST['act'] = 'bindphone';
+	$reqdata['token'] = '2560fb83702bf8c6119cd6a2dd435ac0';
+	$reqdata['mobile'] = '15010753496';
+	$reqdata['mobilecode'] = '535556'; 
 }
 
 

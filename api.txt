@@ -241,6 +241,7 @@ org_price 原价
 app=user&act=sendcode
 参数
 mobile 手机号
+type 类型 register（默认值，注册时用）resetpwd（重置密码时用） bindphone（绑定手机时用，必须为登录状态）
 返回
 状态码
 
@@ -252,6 +253,22 @@ username 用户名
 password 密码
 mobilecode 手机验证码
 email 邮箱
+返回
+状态码
+
+24\重置密码（要结合前面的手机验证码）
+app=user&act=resetpwd
+参数
+mobile 手机号
+mobilecode 手机验证码
+返回
+状态码  密码会被重置为用户手机号
+
+25\绑定手机（必须带token，要结合前面的手机验证码）
+app=user&act=bindphone
+参数
+mobile 手机号
+mobilecode 手机验证码
 返回
 状态码
 

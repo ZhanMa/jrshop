@@ -46,7 +46,12 @@ class UserApp extends MobileApp{
 		$result = $ms->user->edit($user_id, '', array(
 				'password' => $mobile
 		),1);
-		$this->success(array('info'=>"尊敬的用户您的密码已成功重置为您的手机号,用户名".$user['user_name']));
+		if($result){
+			$this->success(array('info'=>"尊敬的用户您的密码已成功重置为您的手机号,用户名".$user['user_name']));
+		}else{
+			$this->error(0,'修改失败');
+		}
+		
 		
 	}
 	
@@ -70,13 +75,19 @@ class UserApp extends MobileApp{
 		if(!$oldcode){
 			$this->error(121,'手机验证码错误');
 		}
-		if($oldcode['code']!=$code){
+		if($oldcode['code']!=$mobilecode){
 			$this->error(121,'手机验证码错误');
 		}
-		$result = $ms->user->edit($user_id, $password, array(
+		$result = $ms->user->edit($user_id, '', array(
 				'safephone' => $mobile
-		));
-		$this->success(array('info'=>'绑定成功'));
+		),1);
+		if($result){
+			$this->success(array('info'=>'绑定成功'));
+		}else{
+			$this->error(0,'绑定失败');
+			
+		}
+		
 	}
 	
 	function changepwd(){
