@@ -57,7 +57,7 @@ if($tname=='login'){
 }elseif($tname=='storeinfo'){
 	$_REQUEST['app'] = 'store';
 	$_REQUEST['act'] = 'info';
-	$reqdata['id'] = 34;
+	$reqdata['id'] = 36;
 }elseif($tname=='storegoods'){
 	$_REQUEST['app'] = 'store';
 	$_REQUEST['act'] = 'goods';

@@ -9,6 +9,7 @@ class StoreApp extends MobileApp{
 		$store_info = $store_mod->get_info($storeid);
 		$sgrade_mod =& m('sgrade');
 		$grades = $sgrade_mod->get_options();
+		empty($store_info['store_logo']) && $store_info['store_logo'] = Conf::get('default_store_logo');
 		$info['logo'] = SITE_URL.'/'.$store_info['store_logo'];
 		$info['name'] = $store_info['store_name'];
 		$info['id'] = $store_info['store_id'];
@@ -17,6 +18,7 @@ class StoreApp extends MobileApp{
 		$info['grade'] = $grades[$store_info['sgrade']];
 		$info['credit_value'] = $store_info['credit_value'];
 		$info['description'] = strip_tags($store_info['description']);
+		$info['tel'] = $store_info['tel'];
 		$goods_mod =& m('goods');
 		$info['goods_count'] = $goods_mod->get_count_of_store($storeid);
 		$this->success(array('info'=>$info));

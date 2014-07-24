@@ -123,7 +123,7 @@ class GroupbuyApp extends MobileApp{
 		$groupbuy_mod = &m('groupbuy');
 		$groupbuy_list = $groupbuy_mod->find(array(
 				'conditions'    => 'gb.state ='. GROUP_ON .' AND gb.end_time>' . time(),
-				'fields'        => 'gb.group_name,gb.spec_price,gb.min_quantity,gb.store_id,gb.state,gb.end_time,g.default_image,default_spec,s.store_name,g.price,gb.start_time',
+				'fields'        => 'gb.goods_id,gb.group_name,gb.spec_price,gb.min_quantity,gb.store_id,gb.state,gb.end_time,g.default_image,default_spec,s.store_name,g.price,gb.start_time',
 				'join'          => 'belong_store, belong_goods',
 				'limit'         => $start.','.$limit,
 				'count'         => true,   //允许统计
@@ -151,6 +151,8 @@ class GroupbuyApp extends MobileApp{
 			$g['default_image'] =  SITE_URL.'/'.$item['default_image'];
 			$g['grounp_price'] = $defaultspect['price'];
 			$g['org_price'] = $item['price'];
+			$g['goods_id'] = $item['goods_id'];
+			$g['group_id'] = $item['group_id'];
 			$list[] = $g;
 		}
 		$count = $groupbuy_mod->getCount();
