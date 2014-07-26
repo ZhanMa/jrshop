@@ -71,6 +71,8 @@ class MobileApp extends FrontendApp
 	 * 120 注册信息错误
 	 * 121 短信验证码错误
 	 * 122 参数错误
+	 * 123 已经评价
+	 * 124 订单状态错误
 	 * @param unknown $msg
 	 * @param number $code
 	 */

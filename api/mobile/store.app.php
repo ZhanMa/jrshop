@@ -29,7 +29,7 @@ class StoreApp extends MobileApp{
 		$page = $this->reqdata->page?intval($this->reqdata->page):0;
 		$limit = $this->reqdata->pagesize?intval($this->reqdata->pagesize):15;
 		$start = $page*$limit;
-		
+		$sgcate_id = $this->reqdata->cat_id;
 		if(!$store_id){
 			
 			$this->error(112,'店铺id错误');
@@ -38,13 +38,26 @@ class StoreApp extends MobileApp{
 		
 		$conditions = " g.if_show = 1 AND g.closed = 0 AND s.state = 1"; // 上架且没有被禁售，店铺是开启状态,
 		$conditions .= " AND  g.store_id = $store_id";
-		$goods_mod  =& m('goods');
+		$goods_mod =& bm('goods', array('_store_id' => $store_id));
+		if ($sgcate_id > 0)
+		{
+			$gcategory_mod =& bm('gcategory', array('_store_id' => $id));
+			$sgcate = $gcategory_mod->get_info($sgcate_id);
+			$search_name = $sgcate['cate_name'];
+		
+			$sgcate_ids = $gcategory_mod->get_descendant_ids($sgcate_id);
+		}
+		else
+		{
+			$sgcate_ids = array();
+		}
+		
 		$goods_list = $goods_mod->get_list(array(
 				'conditions' => $conditions,
 				'order'      => 'g.last_update desc',
 				'limit'      => $start.','.$limit,
 				'count' => true
-		));
+		),$sgcate_ids);
 		
 		foreach ($goods_list as $key=>$goods){
 			$goods_image_mod=&m('goodsimage');
@@ -54,6 +67,7 @@ class StoreApp extends MobileApp{
 			$goods_list[$key]['default_image']=SITE_URL.'/'.$goods_image['thumbnail'];
 		}
 		$list = array_values($goods_list);
+		
 		$count = $goods_mod->getCount();
 		$this->success(array('count'=>$count,'list'=>$list));
 	}
@@ -305,5 +319,43 @@ class StoreApp extends MobileApp{
 		
 		$this->success(array('type'=>'store','count'=>$count,'list'=>$list));
 		
+	}
+	
+	function brand(){
+		$scategory_mod=&m('scategory');
+    	$scategories=$scategory_mod->find(array('conditions'=>'parent_id=0'));
+    	$store_mod = & m('store');
+    	$storelist = array();
+    	foreach($scategories as $key=>$val){
+    		$store_arr = $store_mod->find(array("conditions" => 'state = 1 AND cate_id = '.$key,'join'  => 'has_scategory','order'=>'sort_order desc,add_time asc'));
+    		$item = $val;
+    		$s = array();
+    		foreach ($store_arr as $store){
+    			$i['id'] = $store['store_id'];
+    			$i['logo'] = SITE_URL . '/' .$store['store_logo'];
+    			$i['name'] = $store['store_name'];
+    			$i['owner']= $store['owner_name'];
+    			$s[] = $i;
+    		}
+    		$item['list'] = $s;
+    		$storelist[] = $item;
+    	}
+    	$this->success(array('list'=>$storelist));
+	}
+	
+	function scate(){
+		$storeid = $this->reqdata->id;
+		if(!$storeid){
+			$this->error(112,'店铺id错误');
+		}
+		$gcategory_mod =& bm('gcategory', array('_store_id' => $storeid));
+		$gcategories = $gcategory_mod->get_list(-1, true);
+		$v = array();
+		foreach ($gcategories as $item){
+			$i['cate_id'] = $item['cate_id'];
+			$i['cate_name'] = $item['cate_name'];
+			$v[] = $i;
+		}
+		$this->success(array('list'=>$v));
 	}
 }

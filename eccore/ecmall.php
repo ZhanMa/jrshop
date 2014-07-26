@@ -170,7 +170,7 @@ class Lang
      *    @param     none
      *    @return    mixed
      */
-    function &get($key = '')
+    static  function get($key = '')
     {
         if (Lang::_valid_key($key) == false)
         {
@@ -189,7 +189,7 @@ class Lang
      * @param string $key
      * @return bool
      */
-    function _valid_key($key)
+   static function _valid_key($key)
     {
         if (strpos($key, ' ') !== false)
         {
@@ -262,7 +262,7 @@ class Conf
      *    @param     mixed $conf
      *    @return    bool
      */
-    function load($conf)
+    static  function load($conf)
     {
         $old_conf = isset($GLOBALS['ECMALL_CONFIG']) ? $GLOBALS['ECMALL_CONFIG'] : array();
         if (is_string($conf))
@@ -285,7 +285,7 @@ class Conf
      *    @param     string $k
      *    @return    mixed
      */
-    function get($key = '')
+    static function get($key = '')
     {
         $vkey = $key ? strtokey("{$key}", '$GLOBALS[\'ECMALL_CONFIG\']') : '$GLOBALS[\'ECMALL_CONFIG\']';
 

@@ -265,4 +265,47 @@ class UserApp extends MobileApp{
 		$this->visitor->info['token'] = $token;
 		$this->success((array)$this->visitor->info);
 	}
+	
+	function message(){
+		if(!$this->visitor->has_login){
+			$this->error(108,'请登录后评价');
+		}
+		$user_id = $this->visitor->get('user_id');
+		$starttime = $this->reqdata->starttime;
+		$endtime = $this->reqdata->endtime;
+		$page = $this->reqdata->page?intval($this->reqdata->page):0;
+		$limit = $this->reqdata->pagesize?intval($this->reqdata->pagesize):15;
+		$start = $page*$limit;
+		$condition = '';
+		if($starttime){
+			$starttime = strtotime($starttime);
+			$condition.= 'and addtime>='.$starttime;
+		}
+		if($endtime){
+			$endtime = strtotime($endtime);
+			$endtime = $endtime + 24*60*60;
+			$condition.= 'and addtime>='.$starttime;
+		}
+		$model_message =& m('message');
+		$messages = $model_message->find(array(
+				'fields'        =>'this.*',
+				'conditions'    => 'parent_id=0 '.$condition,
+				'count'         => true,
+				'limit'         => "$start,$limit",
+				'order'         => 'last_update DESC',
+		));
+		$count = $model_message->getCount();
+		if (!empty($messages))
+		{
+			foreach ($messages as $key => $message)
+			{
+				$messages[$key]['new'] = (($message['from_id'] == $user_id && $message['new'] == 2)||($message['to_id'] == $user_id && $message['new'] == 1 )) ? 1 : 0; //判断是否是新消息
+				$subject = $this->removecode($messages[$key]['content']);
+				$subject = str_replace('点击购买', '', $subject);
+				$messages[$key]['content'] = htmlspecialchars($subject);
+				$message['from_id'] == MSG_SYSTEM && $messages[$key]['user_name'] = Lang::get('system_message'); //判断是否是系统消息
+			}
+		}
+		$this->success(array('list'=>$messages,'count'=>$count));
+	}
 }

@@ -62,6 +62,7 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'store';
 	$_REQUEST['act'] = 'goods';
 	$reqdata['id'] = 47;
+	$reqdata['cat_id'] = 87;
 }elseif($tname=='addfavorite'){
 	$_REQUEST['app'] = 'store';
 	$_REQUEST['act'] = 'addfavorite';
@@ -88,10 +89,8 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'orders';
 	$reqdata['add_time_from'] = '2014-07-01 01:30:20';
 	//$reqdata['add_time_to'] = '2014-07-02 01:30:20';
-	$reqdata['token'] = '3c71a8b435d0f1265ceee8a06bcf4d7a';
-	$a = ' {"appid":1,"pagesize":"15","page":"0","status":"all","order_sn":"null","add_time_from":"null","add_time_to":"null","token":"2eafc37e37a09c31185f3c0356248043"}';
-	$a = json_decode($a);
-	var_dump($a);
+	$reqdata['token'] = '2a8730569d62219527f6bc5dda132657';
+	
 }elseif($tname=='orderview'){
 	$_REQUEST['app'] = 'order';
 	$_REQUEST['act'] = 'view';
@@ -132,6 +131,14 @@ if($tname=='login'){
 	$reqdata['id'] = 47;
 	$reqdata['type'] = 'store';
 	$reqdata['token'] = '327d5b17ff7866b60bda52588363dd9b';
+}elseif($tname=='scate'){
+	$_REQUEST['app'] = 'store';
+	$_REQUEST['act'] = 'scate';
+	$reqdata['id'] = 47;
+	
+}elseif($tname=='brand'){
+	$_REQUEST['app'] = 'store';
+	$_REQUEST['act'] = 'brand';
 }
 
 

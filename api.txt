@@ -169,6 +169,7 @@ app=store&act=goods
 id 店铺id
 page 第几页 从0开始
 pagesize 每页条数
+cat_id (选填)店铺自己的商品分类
 返回商品列表
 
 15\关注店铺或商品（必须带token）
@@ -277,6 +278,21 @@ app=store&act=dropfavorite
 参数
 id 店铺id或者商品id
 type（字符串） 关注的类型 goods商品 store 店铺 
+
+27\品牌中心（就是按分类划分的店铺信息）
+app=store&act=brand
+参数
+无
+返回
+嵌套2层的数组 最外层的数组为店铺被归为的大类信息 
+然后是每个大类下的店铺信息
+
+28\获取店铺自己的商品分类（注意这个不是官方商品分类是店铺自己的商品分类）
+app=store&act=scate
+参数
+id 店铺id
+返回
+分类列表 list
 
 
 
