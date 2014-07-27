@@ -279,17 +279,17 @@ class UserApp extends MobileApp{
 		$condition = '';
 		if($starttime){
 			$starttime = strtotime($starttime);
-			$condition.= 'and addtime>='.$starttime;
+			$condition.= ' and add_time>='.$starttime;
 		}
 		if($endtime){
 			$endtime = strtotime($endtime);
 			$endtime = $endtime + 24*60*60;
-			$condition.= 'and addtime>='.$starttime;
+			$condition.= ' and add_time>='.$starttime;
 		}
 		$model_message =& m('message');
 		$messages = $model_message->find(array(
 				'fields'        =>'this.*',
-				'conditions'    => 'parent_id=0 '.$condition,
+				'conditions'    => 'parent_id=0  and to_id=5 '.$condition,
 				'count'         => true,
 				'limit'         => "$start,$limit",
 				'order'         => 'last_update DESC',
@@ -301,11 +301,28 @@ class UserApp extends MobileApp{
 			{
 				$messages[$key]['new'] = (($message['from_id'] == $user_id && $message['new'] == 2)||($message['to_id'] == $user_id && $message['new'] == 1 )) ? 1 : 0; //判断是否是新消息
 				$subject = $this->removecode($messages[$key]['content']);
-				$subject = str_replace('点击购买', '', $subject);
+				$subject = str_replace(array('点击购买','查看详情'), '', $subject);
 				$messages[$key]['content'] = htmlspecialchars($subject);
 				$message['from_id'] == MSG_SYSTEM && $messages[$key]['user_name'] = Lang::get('system_message'); //判断是否是系统消息
 			}
 		}
-		$this->success(array('list'=>$messages,'count'=>$count));
+		
+		$list = array();
+		foreach ($messages as $ms){
+			$i['content'] = $ms['content'];
+			$i['add_time'] = date('Y-m-d H:i:s',$ms['add_time']);
+			$i['user_name'] = $ms['user_name']=='system_message'?'系统消息':$i['user_name'];
+			$list[] = $i;
+		}
+		$this->success(array('list'=>$list,'count'=>$count));
+	}
+	
+	function removecode($str) {
+		$rs = trim(preg_replace(array(
+				"/\[(img)=?.*\].*?\[\/(img)\]/siU",
+				"/\[\/?(url)=?.*\]/siU",
+				"/\r\n/",
+		), '', $str));
+		return $rs;
 	}
 }

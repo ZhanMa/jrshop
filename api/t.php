@@ -28,7 +28,7 @@ if($tname=='login'){
 	$_REQUEST['app'] = 'index';
 	$_REQUEST['act'] = 'goodscat';
 	$reqdata['fid'] = 4;
-	//$reqdata['onlyroot'] = 1;
+	$reqdata['onlyroot'] = 1;
 }elseif($tname=='getstore'){
 	$_REQUEST['app'] = 'index';
 	$_REQUEST['act'] = 'getstore';
@@ -139,6 +139,28 @@ if($tname=='login'){
 }elseif($tname=='brand'){
 	$_REQUEST['app'] = 'store';
 	$_REQUEST['act'] = 'brand';
+}elseif($tname=='finish'){
+	$_REQUEST['app'] = 'order';
+	$_REQUEST['act'] = 'finish';
+	$reqdata['token'] = 'ba5d7582d59f2e163a3821868ccc32a3';
+	$reqdata['order_id'] = '139';
+}elseif($tname=='evaluate'){
+	$_REQUEST['app'] = 'order';
+	$_REQUEST['act'] = 'evaluate';
+	$reqdata['token'] = 'ba5d7582d59f2e163a3821868ccc32a3';
+	$reqdata['order_id'] = '139';
+	$reqdata['evaluation'] = 1;
+	$reqdata['comment'] = 'eeeeeee';
+}elseif($tname=='comments'){
+	$_REQUEST['app'] = 'order';
+	$_REQUEST['act'] = 'comments';
+	
+	$reqdata['goods_id'] = '142';
+}elseif($tname=='message'){
+	$_REQUEST['app'] = 'user';
+	$_REQUEST['act'] = 'message';
+	$reqdata['token'] = 'ba5d7582d59f2e163a3821868ccc32a3';
+	$reqdata['starttime'] = '2014-05-15';
 }
 
 

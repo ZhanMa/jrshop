@@ -163,7 +163,7 @@ class OrderApp extends MobileApp{
 		$goods_list = $model_ordergoods->find("order_id={$order_id}");
 		$firstgoods = array_shift($goods_list);
 		
-		$_POST['evaluations'] = array($firstgoods['default_spec']=>array('evaluation'=>$this->reqdata->evaluation,'comment'=>$this->reqdata->comment));
+		$_POST['evaluations'] = array($firstgoods['rec_id']=>array('evaluation'=>$this->reqdata->evaluation,'comment'=>$this->reqdata->comment));
 		
 		$evaluations = array();
 		/* 写入评价 */
@@ -240,9 +240,7 @@ class OrderApp extends MobileApp{
 	}
 	
 	function finish(){
-		if(!$this->visitor->has_login){
-			$this->error(108,'请登录后评价');
-		}
+		
 		$order_id = isset($this->reqdata->order_id) ? intval($this->reqdata->order_id) : 0;
 		if (!$order_id)
 		{
@@ -278,7 +276,15 @@ class OrderApp extends MobileApp{
 		
 		
 		$count = $order_goods_mod->getCount();
-		
-		$this->success(array('list'=>$comments,'count'=>$count));
+		$list = array();
+		foreach ($comments as $i){
+			$item['buyer_name'] =  $i['buyer_name'];
+			$item['buyer_id'] = $i['buyer_id'];
+			$item['evaluation_time'] = date('Y-m-d H:i:s',$i['evaluation_time']);
+			$item['comment'] = $i['comment'];
+			$item['evaluation'] = $i['evaluation'];
+			$list[] = $item;
+		}
+		$this->success(array('list'=>$list,'count'=>$count));
 	}
 }

@@ -294,6 +294,43 @@ id 店铺id
 返回
 分类列表 list
 
+29\分页获取某人的短消息列表（必须带token）
+app=user&act=message
+参数
+page 第几页 从0开始
+pagesize 每页条数
+starttime 起始时间（格式 2014-05-13 不需要时分秒）
+endtime 结束时间（格式 2014-05-13 不需要时分秒）
+返回
+短消息列表 list
+
+30\对商品评价（必须带token，）
+app=order&act=evaluate
+说明
+必须是已经购买且完成的订单才能发起评价，且一个订单只能评价一次
+，对应的获取订单接口增加了两个返回值，用于判断是否可以评价这个订单 finished :订单是否已经完成  evaluation_status: 是否已经评价过订单
+参数
+order_id 订单id
+evaluation 评价（整型） 3好评 2中评 1差评
+comment 评价内容 文本
+
+31\获取某商品的评价列表
+app=order&act=comments
+参数
+goods_id 商品id
+page 第几页 从0开始
+pagesize 每页条数
+返回
+该商品的评价列表  list
+
+32\完成商品购买 该接口用户测试
+app=order&act=finish
+说明
+购买完一个商品后订单处于已经购买但还没完成的状态 需要商家操作才能完成这个订单，已经完成的订单才能评价
+为了方便测试可以手动去掉这个接口让一个订单直接完成 ，然后就可以评价这个订单的商品了
+参数
+order_id 订单id
+
 
 
 
