@@ -331,6 +331,9 @@ app=order&act=finish
 参数
 order_id 订单id
 
-
+33\获取更新接口
+app=update&act=update
+返回
+最新版本version 和更新地址 url
 
 

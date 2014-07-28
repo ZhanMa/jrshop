@@ -161,6 +161,9 @@ if($tname=='login'){
 	$_REQUEST['act'] = 'message';
 	$reqdata['token'] = 'ba5d7582d59f2e163a3821868ccc32a3';
 	$reqdata['starttime'] = '2014-05-15';
+}elseif($tname=='update'){
+	$_REQUEST['app'] = 'update';
+	$_REQUEST['act'] = 'update';
 }
 
 
